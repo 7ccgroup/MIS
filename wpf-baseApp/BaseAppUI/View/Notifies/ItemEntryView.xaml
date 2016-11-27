@@ -1,0 +1,68 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:PosUI.ViewModel.Sections"
+        xmlns:vmM="clr-namespace:PosUI.ViewModel"
+        xmlns:local="clr-namespace:PosUI.View.Notifies"
+        xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" x:Class="PosUI.View.Notifies.ItemEntryView"
+        mc:Ignorable="d"
+        
+        Title="ItemEntryView"  Style="{DynamicResource POSpopup}" WindowStartupLocation="CenterScreen" >
+    
+    <Window.Background>
+        <SolidColorBrush Color="Black" Opacity=".5"/>
+    </Window.Background>
+    <!--<vm:ItemEntry />-->
+    <Window.DataContext>
+        <vm:ItemEntry/>
+    </Window.DataContext>
+    <Border CornerRadius="16" Width="1112" Height="676" Background="White" >
+        <Grid >
+            <TextBlock x:Name="textBlockItemAddUpd" Width="190" FontWeight="Bold" FontSize="44" HorizontalAlignment="Left" Margin="461,5,0,0" TextWrapping="Wrap" Text="Item Edit" VerticalAlignment="Top" Style="{DynamicResource POSpopupTextblock}"/>
+            <Button x:Name="button" Command="{Binding CancelItemEditCommand}" CommandParameter="{Binding ElementName=ItemEditWindow}" Style="{DynamicResource SaveButtonStyle}" Width="170" Height="40" Margin="890,612,52,24"/>
+            <Button x:Name="button1" Command="{Binding CancelItemEditCommand}" Style="{DynamicResource CancelButtonStyle}"  HorizontalAlignment="Left" Margin="52,614,0,0" VerticalAlignment="Top" Width="170" Height="40"/>
+            <TextBlock x:Name="textBlockItemID" HorizontalAlignment="Left" Margin="52,77,0,0" TextWrapping="Wrap" Text="Item ID:" VerticalAlignment="Top" Style="{DynamicResource POSpopupTextblock}"/>
+            <TextBox x:Name="textBoxItemID" HorizontalAlignment="Left" Margin="175,77,0,0" TextWrapping="Wrap" Text="{Binding ItemEntry.SelctedItemForEdit.itemID,UpdateSourceTrigger=Explicit}" VerticalAlignment="Top" Width="200" Style="{DynamicResource POSpopupTextbox}"/>
+
+            <TextBlock x:Name="textBlockItemStatus" HorizontalAlignment="Left" Margin="652,77,0,0" TextWrapping="Wrap" Text="Item Status:" VerticalAlignment="Top" Style="{DynamicResource POSpopupTextblock}"/>
+            <TextBox x:Name="textBoxItemStatus" HorizontalAlignment="Left" Margin="832,77,0,0" TextWrapping="Wrap" Text="{Binding ItemEntry.SelctedItemForEdit.vItemStatus}" VerticalAlignment="Top" Style="{DynamicResource POSpopupTextbox}"/>
+
+            <TextBlock x:Name="textBlockItemDesc1" HorizontalAlignment="Left" Margin="52,127,0,0" TextWrapping="Wrap" Text="Description1:" VerticalAlignment="Top" Style="{DynamicResource POSpopupTextblock}"/>
+            <TextBox x:Name="textBoxItemDesc1" HorizontalAlignment="Left" Margin="252,127,0,0" TextWrapping="Wrap" Text="{Binding SelctedItemForEdit.vItemDesc1}" VerticalAlignment="Top" Width="690" Style="{DynamicResource POSpopupTextbox}"/>
+
+            <TextBlock x:Name="textBlockItemDesc2" HorizontalAlignment="Left" Margin="52,177,0,0" TextWrapping="Wrap" Text="Description2:" VerticalAlignment="Top" Style="{DynamicResource POSpopupTextblock}"/>
+            <TextBox x:Name="textBoxItemDesc2" HorizontalAlignment="Left" Margin="252,177,0,0" TextWrapping="Wrap" Text="{Binding SelctedItemForEdit.vItemDesc2}" VerticalAlignment="Top" Width="690" Style="{DynamicResource POSpopupTextbox}"/>
+
+            <TextBlock x:Name="textBlockItemPrice" HorizontalAlignment="Left" Margin="52,227,0,0" TextWrapping="Wrap" Text="Price:" VerticalAlignment="Top" Style="{DynamicResource POSpopupTextblock}"/>
+            <TextBox x:Name="textBoxItemPrice" HorizontalAlignment="Left" Margin="139,227,0,0" TextWrapping="Wrap" Text="Price:" VerticalAlignment="Top" Width="400" Style="{DynamicResource POSpopupTextbox}"/>
+
+            <TextBlock x:Name="textBlockItemMinPrice" HorizontalAlignment="Left" Margin="652,227,0,0" TextWrapping="Wrap" Text="Minimum Price:" VerticalAlignment="Top" Style="{DynamicResource POSpopupTextblock}"/>
+            <TextBox x:Name="textBoxItemMinPrice" HorizontalAlignment="Left" Margin="890,227,0,0" TextWrapping="Wrap" Text="Price:" VerticalAlignment="Top" Width="150" Style="{DynamicResource POSpopupTextbox}"/>
+
+            <TextBlock x:Name="textBlockItemCategory" HorizontalAlignment="Left" Margin="52,277,0,0" TextWrapping="Wrap" Text="Category:" VerticalAlignment="Top" Style="{DynamicResource POSpopupTextblock}"/>
+            <TextBox x:Name="textBoxItemCategory" HorizontalAlignment="Left" Margin="202,277,0,0" TextWrapping="Wrap" Text="Category:" VerticalAlignment="Top" Style="{DynamicResource POSpopupTextbox}"/>
+
+            <TextBlock x:Name="textBlockItemAvail" HorizontalAlignment="Left" Margin="52,327,0,0" TextWrapping="Wrap" Text="Availability:" VerticalAlignment="Top" Style="{DynamicResource POSpopupTextblock}"/>
+            <TextBox x:Name="textBoxItemAvail" HorizontalAlignment="Left" Margin="228,327,0,0" TextWrapping="Wrap" Text="Availability:" VerticalAlignment="Top" Style="{DynamicResource POSpopupTextbox}"/>
+
+            <Ellipse Width="934" Height="2" Fill="ForestGreen" Margin="0,0,0,570" ></Ellipse>
+            <TextBlock x:Name="textBlockItemNotes" HorizontalAlignment="Left" Margin="52,377,0,0" TextWrapping="Wrap" Text="Notes:" VerticalAlignment="Top" Style="{DynamicResource POSpopupTextblock}"/>
+            <TextBox x:Name="textBoxItemNotes" HorizontalAlignment="Left" Margin="152,377,0,0" TextWrapping="Wrap" Text="Notes:" VerticalAlignment="Top" Width="790" Style="{DynamicResource POSpopupTextbox}"/>
+
+            <TextBlock x:Name="textBlockItemVendor" HorizontalAlignment="Left" Margin="52,427,0,0" TextWrapping="Wrap" Text="Vendor:" VerticalAlignment="Top"  Style="{DynamicResource POSpopupTextblock}"/>
+            <TextBox x:Name="textBoxItemVendor" HorizontalAlignment="Left" Margin="172,427,0,0" TextWrapping="Wrap" Text="Vendor:" VerticalAlignment="Top" Width="400"  Style="{DynamicResource POSpopupTextbox}"/>
+
+            <TextBlock x:Name="textBlockItemVendorContact" HorizontalAlignment="Left" Margin="52,477,0,0" TextWrapping="Wrap" Text="Vendor Contact:" VerticalAlignment="Top" Style="{DynamicResource POSpopupTextblock}"/>
+            <TextBox x:Name="textBoxItemVendorContact" HorizontalAlignment="Left" Margin="298,477,0,0" TextWrapping="Wrap" Text="Contact:" VerticalAlignment="Top" Width="400"  Style="{DynamicResource POSpopupTextbox}"/>
+
+            <TextBlock x:Name="textBlockItemVendorPhone" HorizontalAlignment="Left" Margin="52,527,0,0" TextWrapping="Wrap" Text="Vendor Phone:" VerticalAlignment="Top" Style="{DynamicResource POSpopupTextblock}"/>
+            <TextBox x:Name="textBoxItemVendorPhone" HorizontalAlignment="Left" Margin="276,527,0,0" TextWrapping="Wrap" Text="Phone:" VerticalAlignment="Top" Width="400"  Style="{DynamicResource POSpopupTextbox}"/>
+
+
+
+        </Grid>
+    </Border>
+
+</Window>

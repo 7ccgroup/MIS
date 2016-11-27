@@ -1,0 +1,158 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:BaseAppUI.ViewModel.Notifies"
+                    xmlns:control="clr-namespace:BaseAppUI.Controls"
+                    >
+    
+   
+    
+    <DataTemplate x:Key="LineItemModifierView" DataType="{x:Type vm:LineItemModifier}">
+        <DataTemplate.Resources>
+            <Style x:Key="LineItemLabelStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+                <Setter Property="FontSize" Value="16"></Setter>
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+                <Setter Property="Foreground" Value="#9F9F9F"></Setter>
+
+
+            </Style>
+        </DataTemplate.Resources>
+
+        <Grid>
+
+            <Border Width="1132" Height="834" Background="White" CornerRadius="16">
+                <Border.Effect>
+                    <DropShadowEffect></DropShadowEffect>
+                </Border.Effect>
+            </Border>
+
+            <Border Width="1132" Height="834" Background="White" CornerRadius="16">
+              
+                <Grid Margin="32,32,45,32">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"></RowDefinition>
+                        <RowDefinition Height="16"></RowDefinition>
+                        <RowDefinition Height="55"></RowDefinition>
+                        <RowDefinition Height="32"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="16"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+
+                    </Grid.RowDefinitions>
+
+                    <DockPanel Grid.Row="0">
+                        <TextBlock  Text="{Binding Title}" FontSize="34" FontWeight="Light" Foreground="#292A2E"></TextBlock>
+
+                        <StackPanel HorizontalAlignment="Right">
+                            <TextBlock  FontSize="34" HorizontalAlignment="Center" FontWeight="Light" Foreground="#292A2E" Text="{Binding Subtotal,StringFormat={}{0:C}}"></TextBlock>
+                            <TextBlock  FontSize="16" HorizontalAlignment="Center" Margin="0,10,0,0" FontWeight="Light" Foreground="#757575" Text="{Binding Price,StringFormat={}{0:C} / item}"></TextBlock>
+
+                        </StackPanel>
+                    </DockPanel>
+
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="55"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="36"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="QUANTITY" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#9F9F9F" FontSize="16" FontWeight="Bold"></TextBlock>
+
+                        <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Button Command="{Binding LineItemCommand}" CommandParameter="{x:Static vm:LineItemModifierButton.Subtract}" Width="50" Height="50" HorizontalAlignment="Left" Style="{DynamicResource ArrowButtonStyle}">
+                                <Image Source="{DynamicResource Icon_orderline_subtract}"></Image>
+
+                            </Button>
+
+                            <TextBlock Width="100" Text="{Binding Quantity}" VerticalAlignment="Center" FontSize="34" FontWeight="Light" Foreground="#282A2D" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+
+                            <Button Command="{Binding LineItemCommand}" CommandParameter="{x:Static vm:LineItemModifierButton.Addition}" Width="50" Height="50" HorizontalAlignment="Left" Style="{DynamicResource ArrowButtonStyle}">
+                                <Image Source="{DynamicResource Icon_orderline_addition}"></Image>
+
+                            </Button>
+                        </StackPanel>
+                        
+                    </Grid>
+                    
+                    <!--Add Textblock for Order Notes-->
+
+                    <Grid Grid.Row="4">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="36"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="46"></RowDefinition>
+                            <RowDefinition Height="54"></RowDefinition>
+                            <RowDefinition Height="46"></RowDefinition>
+                            <RowDefinition Height="54"></RowDefinition>
+                            <RowDefinition Height="46"></RowDefinition>
+                            <RowDefinition Height="54"></RowDefinition>
+                            <RowDefinition Height="46"></RowDefinition>
+                            <RowDefinition Height="54"></RowDefinition>
+                            <RowDefinition Height="46"></RowDefinition>
+
+
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                      
+                        <TextBlock Grid.Row="5" Grid.Column="0" Text="SIZE" Style="{DynamicResource LineItemLabelStyle}"></TextBlock>
+                        <control:ToggleGroup Grid.Row="5" Grid.Column="2"  Items="{Binding Sizes}" Value="{Binding Size,Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource LineItemGroupToggleStyle}"></control:ToggleGroup>
+
+                        <TextBlock Grid.Row="7" Grid.Column="0" Text="SPICE" Style="{DynamicResource LineItemLabelStyle}"></TextBlock>
+                        <control:ToggleGroup Grid.Row="7" Grid.Column="2"  Items="{Binding Spices}" Value="{Binding Spice,Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource LineItemGroupToggleStyle}"></control:ToggleGroup>
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="ADD-ONS" VerticalAlignment="Top" Style="{DynamicResource LineItemLabelStyle}"></TextBlock>
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding AddonTotal, StringFormat=\{0:C\}}" Margin="20,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="#757575" FontSize="20" FontWeight="Light"></TextBlock>
+                        <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Horizontal">
+
+                            <control:ToggleGroup  MultipleSelect="true" Items="{Binding Addons}" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource LineItemGroupToggleStyle}"></control:ToggleGroup>
+
+
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="9" Grid.Column="0" Text="COOKED" Style="{DynamicResource LineItemLabelStyle}"></TextBlock>
+                        <control:ToggleGroup Grid.Row="9" Grid.Column="2"  Items="{Binding Cookeds}" Value="{Binding Cooked,Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource LineItemGroupToggleStyle}"></control:ToggleGroup>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="COMMENTS" Style="{DynamicResource LineItemLabelStyle}"></TextBlock>
+
+                        <!--<Border Grid.Row="9" Grid.RowSpan="2" Grid.Column="2" CornerRadius="22" BorderThickness="4" BorderBrush="#AAE9D5" Grid.ColumnSpan="2" VerticalAlignment="Top"
+                                              Height="48"  Background="White" >
+                            <TextBlock Text="{Binding Comments}" FontSize="22" TextWrapping="Wrap"  HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#0CBF88"></TextBlock>
+                        </Border>-->
+                        <control:InputControl Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Height="48" Text="{Binding CustomComments}" Foreground="#0CBF88"  VerticalAlignment="Top" BorderBrush="#AAE9D5" Background="White"  AcceptsReturn="True" TextWrapping="Wrap" Style="{DynamicResource ResetTextBoxStyle}"></control:InputControl>
+                       
+                    </Grid>
+                    
+                    <DockPanel Grid.Row="6">
+                        <Button Command="{Binding LineItemCommand}" CommandParameter="{x:Static vm:LineItemModifierButton.Delete}" Background="#F44336" HorizontalAlignment="Left" Content="DELETE ITEM"  Width="180" Height="50" Style="{DynamicResource FlatButtonStyle}"></Button>
+
+                        <Button Command="{Binding LineItemCommand}" CommandParameter="{x:Static vm:LineItemModifierButton.Done}" Background="#4EB734" HorizontalAlignment="Right" Content="DONE"  Width="180" Height="50" Style="{DynamicResource FlatButtonStyle}"></Button>
+
+                    </DockPanel>
+                    
+                </Grid>
+                   
+             
+                
+                
+            </Border>
+
+           
+        </Grid>
+        
+       
+
+    </DataTemplate>
+</ResourceDictionary>

@@ -1,0 +1,384 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:BaseAppUI.ViewModel.Sections"
+                    xmlns:common="clr-namespace:BaseAppUI.Common"
+                    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                    xmlns:se="http://schemas.microsoft.com/expression/2010/interactions"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"                    
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+                    xmlns:chart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"                    >
+
+    <Style x:Key="HeaderLabel" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Foreground" Value="#757575"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+
+    </Style>
+    <Style x:Key="OrderLineLabel" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="#212121"/>
+        <Setter Property="FontSize" Value="21"/>
+    </Style>
+
+    <DataTemplate x:Key="ReportsMainView" DataType="{x:Type vm:ReportsMain}">
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="506"/>
+                <ColumnDefinition Width="1200"/>
+                <ColumnDefinition Width="214"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="73"/>
+                        <RowDefinition Height="450"/>
+                        <RowDefinition Height="450"/>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Width="130" Height="51" HorizontalAlignment="Left"
+                            Command="{Binding ReturnCommand}"
+                            Style="{DynamicResource BackButtonStyle}"
+                            Margin="37,22,0,0">
+
+
+                    </Button>
+                    <TextBlock x:Name="textBlocktopSellingItemLabel" FontSize="35" HorizontalAlignment="Left"  Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Margin="100,50,0,20" Text="Top Selling Items" Foreground="Purple" Height="77.293" Width="282.504"  IsEnabled="False"/>
+                    <TextBlock x:Name="textBlocktopSellingDaysLabel" FontSize="35" HorizontalAlignment="Left"  Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Margin="100,30,0,20" Text="Top Selling Days" Foreground="Green" Height="77.293" Width="282.504"  IsEnabled="False"/>
+
+                    <!--<TextBlock x:Name="textBlocktopSellingDateInLast60days" FontSize="24" HorizontalAlignment="Left"  Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Text="Top Selling Days" Height="81.53" Width="333.147" Foreground="Black" IsEnabled="False" Margin="62.52,0,0,10" />-->
+
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding Path=TopSellingItems }"
+                              RowHeight="40" FontSize="26" ColumnHeaderHeight="50"
+                              CellStyle="{DynamicResource ReportDataGridCell}"
+                              AutoGenerateColumns="False"
+                              ColumnHeaderStyle="{DynamicResource ReportDataGridColumnHeaderStyle}"
+                              GridLinesVisibility="None"
+                              BorderThickness="0"
+                              HorizontalScrollBarVisibility="Hidden"
+                              VerticalScrollBarVisibility="Hidden"
+                              IsHitTestVisible="False"
+                              Margin="0,120,0,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="350" Binding="{Binding Path=Item}" Header="Item Name"/>
+                            <DataGridTextColumn Width="137" TextBlock.TextAlignment="Right" Binding="{Binding Path=Quantity,StringFormat={}{0:#}}" Header="Qty Sold"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Image x:Name="TopSellingItemImage" Height="70" Margin="10,50,0,0" Grid.Row="1" Source="/BaseAppUI.;component/Resources/ReportsAvgSales.png" Stretch="Fill" VerticalAlignment="Top" HorizontalAlignment="Left" Width="70"/>
+                    <DataGrid Grid.Row="2" ItemsSource="{Binding Path=TopSellingDays}"
+                              RowHeight="40" FontSize="26" ColumnHeaderHeight="50"
+                              CellStyle="{DynamicResource ReportDataGridCell}"
+                              ColumnHeaderStyle="{DynamicResource ReportDataGridColumnHeaderStyle}"
+                              GridLinesVisibility="None"
+                              BorderThickness="0"
+                              CanUserAddRows="False"
+                              CanUserResizeRows="False"
+                             AutoGenerateColumns="False"
+                              HorizontalScrollBarVisibility="Hidden"
+                              VerticalScrollBarVisibility="Hidden"
+                              IsHitTestVisible="False"
+                              Margin="0,120,0,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="187" Binding="{Binding Path=OrderDate}" Header="Date"/>
+                            <DataGridTextColumn Width="300" Binding="{Binding Path=Sales,StringFormat={}{0:##.00}}" Header="$ Sales" />
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Image x:Name="TopSellingDateImage" HorizontalAlignment="Left" Margin="10,30,0,0" Height="70" Grid.Row="2" Source="/BaseAppUI.;component/Resources/ReportsOrderFrequency.png" Stretch="Fill" VerticalAlignment="Top" Width="70"/>
+                </Grid>
+            </Border>
+            <Border Grid.Column="1">
+                <Grid Visibility="{Binding ReportDashboardVisible}" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="21"/>
+                        <RowDefinition Height="1015"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0"/>
+                    <Image x:Name="SalesToday" HorizontalAlignment="Left" Height="170" Margin="48,55.666,0,0" Grid.Row="1" Source="/BaseAppUI.;component/Resources/ReportsSalesToday.png" Stretch="Fill" VerticalAlignment="Top" Width="170"/>
+                    <Image x:Name="CustomerCount" HorizontalAlignment="Right" Height="170" Margin="0,0,461.334,162.427" Grid.Row="1" Source="/BaseAppUI.;component/Resources/ReportsCustomer.png" Stretch="Fill" VerticalAlignment="Bottom" Width="170"/>
+
+                    <Image x:Name="MTDSales" HorizontalAlignment="Left" Height="170" Margin="70,375.666,0,0" Grid.Row="1" Source="/BaseAppUI.;component/Resources/ReportsMTD.png" Stretch="Fill" VerticalAlignment="Top" Width="170"/>
+                    <Image x:Name="TodaysOrder" HorizontalAlignment="Right" Margin="0,75.333,461.334,0" Grid.Row="1" Source="/BaseAppUI.;component/Resources/ReportsOrderToday.png" Stretch="Fill" Width="170" Height="170" VerticalAlignment="Top"/>
+                    <Image x:Name="AvgOrderAmount" Margin="70,0,0,147.631" Grid.Row="1" Source="/BaseAppUI.;component/Resources/ReportsAvgOrder.png" Stretch="Fill" HorizontalAlignment="Left" Height="170" VerticalAlignment="Bottom" Width="170"/>
+                    <TextBlock x:Name="textBlockTodaySalesLabel" FontSize="35" HorizontalAlignment="Left" Margin="283.667,209.04,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Text="Sales Today" Height="77.293" Width="202.504" Foreground="#FFEEE0E0" IsEnabled="False"/>
+                    <TextBlock x:Name="textBlockTodaySalesValue" HorizontalAlignment="Left" Margin="286,95.666,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding SalesToday}" VerticalAlignment="Top" FontSize="64" Foreground="#FFF5E6E6" IsEnabled="False"/>
+                    <TextBlock x:Name="textBlockTodayOrderLabel" FontSize="35" HorizontalAlignment="Right" Margin="0,209.04,217.496,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Text="Orders Today" Height="77.293" Width="222.504" Foreground="#FFEEE0E0" IsEnabled="False"/>
+                    <TextBlock x:Name="textBlockTodayOrderValue" HorizontalAlignment="Right" Margin="0,95.666,256.145,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding OrdersToday}" VerticalAlignment="Top" FontSize="64" Foreground="#FFF5E6E6" IsEnabled="False" d:LayoutOverrides="HorizontalAlignment" Width="152.073" Height="85.127"/>
+                    <TextBlock x:Name="textBlockMTDSalesLabel" FontSize="35" HorizontalAlignment="Left" Margin="283.667,479.373,0,428.334" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="Month To Date Sales" Height="Auto" Width="236.504" Foreground="#FFEEE0E0" IsEnabled="False"/>
+
+                    <Image x:Name="AvgMonthlySales" HorizontalAlignment="Right" Margin="0,375.666,461.334,428.334" Grid.Row="1" Source="/BaseAppUI.;component/Resources/ReportsMonthlyForecast.png" Stretch="Fill" Width="170" Height="170"/>
+                    <TextBlock x:Name="textBlockMonthlyAvgSales" FontSize="35" HorizontalAlignment="Right" Margin="0,479.373,161.428,428.334" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="Year To Date Sales" Height="Auto" Width="274.504" Foreground="#FFEEE0E0" IsEnabled="False"/>
+                    <TextBlock x:Name="textBlockItemCountLabel" FontSize="35" HorizontalAlignment="Left" Margin="286,0,0,170.647" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Text="Total Menu Items" Height="95.293" Width="236.504" Foreground="#FFEEE0E0" IsEnabled="False"/>
+                    <TextBlock x:Name="textBlockCustomerCountLabel" FontSize="35" HorizontalAlignment="Right" Margin="0,0,98.809,165.527" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Text="Total Customer Records" Height="95.293" Width="341.191" Foreground="#FFEEE0E0" IsEnabled="False"/>
+                    <TextBlock x:Name="textBlockItemCountValue" HorizontalAlignment="Left" Margin="286,0,0,271.695" Grid.Row="1" TextWrapping="Wrap" Text="{Binding ItemsCount}" VerticalAlignment="Bottom" FontSize="64" Foreground="#FFF5E6E6" IsEnabled="False" Width="174.447" Height="85.127"/>
+                    <TextBlock x:Name="textBlockCustomerCountValue" HorizontalAlignment="Right" Margin="0,0,277.458,278.271" Grid.Row="1" TextWrapping="Wrap" Text="{Binding CustomersCount}" VerticalAlignment="Bottom" FontSize="64" Foreground="#FFF5E6E6" IsEnabled="False" d:LayoutOverrides="HorizontalAlignment" Width="153.542" Height="81.84"/>
+                    <Grid HorizontalAlignment="Stretch" Height="85" Margin="274.667,375.666,633,0" Grid.Row="1" VerticalAlignment="Top" Width="Auto">
+                       
+                        <Viewbox Stretch="Uniform"  Grid.Row="0"  VerticalAlignment="Bottom" HorizontalAlignment="Left" StretchDirection="Both" >
+                            <TextBlock x:Name="textBlockMTDSalesValue" HorizontalAlignment="Left" Grid.Row="0"  Text="{Binding MTDsales}" VerticalAlignment="Top" FontSize="64" Foreground="#FFF5E6E6" IsEnabled="False"/>
+
+                        </Viewbox>
+                    </Grid>
+                    <Grid HorizontalAlignment="Right"  Height="85" Margin="0,375.666,41,0" Grid.Row="1" VerticalAlignment="Top" Width="400">
+                        <Viewbox Stretch="Uniform"  Grid.Row="0"  VerticalAlignment="Bottom" HorizontalAlignment="Left" StretchDirection="Both" >
+
+                            <TextBlock x:Name="textBlockMonthlyAvgSalesValue" HorizontalAlignment="Right"  Grid.Row="1"  Text="{Binding YTDSales}" VerticalAlignment="Top" FontSize="64" Foreground="#FFF5E6E6" IsEnabled="False"/>
+                        </Viewbox>
+                    </Grid>
+                    <!-- <TextBlock Grid.Row="0" Text="{Binding SelectedReportType.Name,UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource CusDetailHeaderLabel}" /> -->
+                    <!-- <DataGrid Grid.Row="1" Height="615" Width="1500" ItemsSource="{Binding Report500101}"/> -->
+
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1">
+                <Grid Visibility="{Binding ReportEndOfDayVisible}" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="110" />
+                        <RowDefinition Height="970"/>
+                        
+
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+
+                        </Grid.ColumnDefinitions>
+                        <FlowDocumentScrollViewer Document="{Binding POSReportDocument}"  Grid.Row="1" Grid.Column="0" Height="900" Width="700" ScrollViewer.VerticalScrollBarVisibility="Hidden"></FlowDocumentScrollViewer>
+                        <!--<Calendar Grid.Row="1" Grid.Column="1" Style="{DynamicResource CustomCalendarStyle}" SelectedDate="{Binding ZreportDateSelection}"></Calendar>-->
+
+                    </Grid>
+                    <Border Grid.Row="0"/>
+                    <Button Height="50" Width="220" Style="{DynamicResource PrintButtonStyle}" Content="PRINT Z-REPORT" Command="{Binding ReportCommand}"></Button>
+                </Grid>
+            </Border>
+            <Border Grid.Column="1"  d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Grid.RowSpan="3">
+                <Grid Margin="129.333,0,0,0" Visibility="{Binding ReportTrendsVisible}" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="21"/>
+                        <RowDefinition Height="254"/>
+                        <RowDefinition Height="254"/>
+                        <RowDefinition Height="254"/>
+                        <RowDefinition Height="254"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="350"></ColumnDefinition>
+                            <ColumnDefinition Width="350"></ColumnDefinition>
+                            <ColumnDefinition Width="350"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                    
+                    <chart:PieChart ChartTitle="Payment Trend" 
+                                    ChartSubTitle="" Background="Transparent" 
+                                    Height="300" Width="400" Grid.Row="1" Grid.Column="0" ChartMargin="2" ChartLegendVisibility="Collapsed" >
+                        <chart:PieChart.Series>
+                            <chart:ChartSeries
+                                    DisplayMember="OrderDate"
+                                    ValueMember="Sales"
+                                    ItemsSource="{Binding DailySalesVisual}"
+                                    
+                                >
+                                
+                            </chart:ChartSeries>
+                        </chart:PieChart.Series>
+                    </chart:PieChart>
+
+                        <chart:PieChart ChartTitle="Sales Trends" 
+                                        
+                                        ChartSubTitle="" Background="Transparent" 
+                                    Height="300" Width="400" Grid.Row="1" Grid.Column="1" ChartMargin="2" ChartLegendVisibility="Collapsed" >
+                            <chart:PieChart.Series>
+                                <chart:ChartSeries
+                                    DisplayMember="OrderDate"
+                                    ValueMember="Sales"
+                                    ItemsSource="{Binding MonthlySalesVisual}"
+                                    
+                                >
+
+                                </chart:ChartSeries>
+                            </chart:PieChart.Series>
+                        </chart:PieChart>
+
+                    </Grid>
+                        <chart:StackedColumnChart  Background="Transparent" 
+                                               ChartSubTitle="" 
+                                               ChartLegendVisibility="Collapsed"
+                                               ChartBackground="Green" 
+                                               
+                                               ChartTitle="Daily Sales" Height="254" Width="1237" Grid.Row="2" ChartBackgroundCornerRadius="16">
+                        <chart:StackedColumnChart.Series>
+                             
+                            <chart:ChartSeries DisplayMember="OrderDate" 
+                                               ItemsSource="{Binding DailySalesVisual}"
+                                               MaxWidth="10"      
+                                               
+                                               ValueMember="Sales"
+                                               >
+                               
+                            </chart:ChartSeries>
+                        </chart:StackedColumnChart.Series>
+                    </chart:StackedColumnChart>
+                    
+                    <chart:ClusteredBarChart  Background="Transparent" 
+                                               ChartSubTitle="" 
+                                               ChartLegendVisibility="Collapsed"
+                                               ChartBackground="Green" 
+                                               
+                                               ChartTitle="Monthly Sales" Height="254" Width="1237" Grid.Row="3" ChartBackgroundCornerRadius="16">
+                        <chart:ClusteredBarChart.Series>
+
+                            <chart:ChartSeries DisplayMember="OrderDate" 
+                                               ItemsSource="{Binding MonthlySalesVisual}"
+                                               MaxWidth="10"      
+                                               
+                                               ValueMember="Sales"
+                                               >
+
+                            </chart:ChartSeries>
+                        </chart:ClusteredBarChart.Series>
+                    </chart:ClusteredBarChart>
+                    <chart:StackedBar100Chart  Background="Transparent" 
+                                               ChartSubTitle="" 
+                                               ChartLegendVisibility="Collapsed"
+                                               ChartBackground="Green" 
+                                               
+                                               ChartTitle="Yearly Sales" Height="254" Width="1237" Grid.Row="4" ChartBackgroundCornerRadius="16">
+                        <chart:StackedBar100Chart.Series>
+
+                            <chart:ChartSeries DisplayMember="OrderDate" 
+                                               ItemsSource="{Binding DailySalesVisual}"
+                                               MaxWidth="10"      
+                                               
+                                               ValueMember="Sales"
+                                               >
+
+                            </chart:ChartSeries>
+                        </chart:StackedBar100Chart.Series>
+                    </chart:StackedBar100Chart>
+                    <Border Grid.Row="0"  Background="White"/>
+                    <!--<Image x:Name="A1SalesToday" HorizontalAlignment="Left" Height="211" Margin="48,55.666,0,0" Grid.Row="1" Source="/BaseAppUI.;component/Resources/ReportsSalesToday.png" Stretch="Fill" VerticalAlignment="Top" Width="176"/>
+                    <Image x:Name="A1CustomerCount" HorizontalAlignment="Right" Height="211" Margin="0,0,461.334,162.427" Grid.Row="1" Source="/BaseAppUI.;component/Resources/ReportsCustomer.png" Stretch="Fill" VerticalAlignment="Bottom" Width="176"/>
+
+                    <Image x:Name="A1MTDSales" HorizontalAlignment="Left" Height="211" Margin="70,375.666,0,0" Grid.Row="1" Source="/BaseAppUI.;component/Resources/ReportsMTD.png" Stretch="Fill" VerticalAlignment="Top" Width="176"/>
+                    <Image x:Name="A1TodaysOrder" HorizontalAlignment="Right" Margin="0,75.333,461.334,0" Grid.Row="1" Source="/BaseAppUI.;component/Resources/ReportsOrderToday.png" Stretch="Fill" Width="176" Height="211" VerticalAlignment="Top"/>
+                    <Image x:Name="A1AvgOrderAmount" Margin="70,0,0,147.631" Grid.Row="1" Source="/BaseAppUI.;component/Resources/ReportsAvgOrder.png" Stretch="Fill" HorizontalAlignment="Left" Height="211" VerticalAlignment="Bottom" Width="176"/>
+                    <TextBlock x:Name="A1textBlockTodaySalesLabel" FontSize="35" HorizontalAlignment="Left" Margin="283.667,209.04,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Text="Sales Today" Height="77.293" Width="202.504" Foreground="#FFEEE0E0" IsEnabled="False"/>
+                    <TextBlock x:Name="A1textBlockTodaySalesValue" HorizontalAlignment="Left" Margin="286,95.666,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding SalesToday}" VerticalAlignment="Top" FontSize="64" Foreground="#FFF5E6E6" IsEnabled="False"/>
+                    <TextBlock x:Name="A1textBlockTodayOrderLabel" FontSize="35" HorizontalAlignment="Right" Margin="0,209.04,217.496,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Text="Orders Today" Height="77.293" Width="222.504" Foreground="#FFEEE0E0" IsEnabled="False"/>
+                    <TextBlock x:Name="A1textBlockTodayOrderValue" HorizontalAlignment="Right" Margin="0,95.666,256.145,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding OrdersToday}" VerticalAlignment="Top" FontSize="64" Foreground="#FFF5E6E6" IsEnabled="False" d:LayoutOverrides="HorizontalAlignment" Width="152.073" Height="85.127"/>
+                    <TextBlock x:Name="A1textBlockMTDSalesLabel" FontSize="35" HorizontalAlignment="Left" Margin="283.667,479.373,0,428.334" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="Month To Date Sales" Height="Auto" Width="236.504" Foreground="#FFEEE0E0" IsEnabled="False"/>
+
+                    <Image x:Name="A1AvgMonthlySales" HorizontalAlignment="Right" Margin="0,375.666,461.334,428.334" Grid.Row="1" Source="/BaseAppUI.;component/Resources/ReportsMonthlyForecast.png" Stretch="Fill" Width="176" Height="211"/>
+                    <TextBlock x:Name="A1textBlockMonthlyAvgSales" FontSize="35" HorizontalAlignment="Right" Margin="0,479.373,161.428,428.334" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="Year To Date Sales" Height="Auto" Width="274.504" Foreground="#FFEEE0E0" IsEnabled="False"/>
+                    <TextBlock x:Name="A1textBlockItemCountLabel" FontSize="35" HorizontalAlignment="Left" Margin="286,0,0,170.647" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Text="Total Menu Items" Height="95.293" Width="236.504" Foreground="#FFEEE0E0" IsEnabled="False"/>
+                    <TextBlock x:Name="A1textBlockCustomerCountLabel" FontSize="35" HorizontalAlignment="Right" Margin="0,0,98.809,165.527" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Text="Total Customer Records" Height="95.293" Width="341.191" Foreground="#FFEEE0E0" IsEnabled="False"/>
+                    <TextBlock x:Name="A1textBlockItemCountValue" HorizontalAlignment="Left" Margin="286,0,0,271.695" Grid.Row="1" TextWrapping="Wrap" Text="{Binding ItemsCount}" VerticalAlignment="Bottom" FontSize="64" Foreground="#FFF5E6E6" IsEnabled="False" Width="174.447" Height="85.127"/>
+                    <TextBlock x:Name="A1textBlockCustomerCountValue" HorizontalAlignment="Right" Margin="0,0,277.458,278.271" Grid.Row="1" TextWrapping="Wrap" Text="{Binding CustomersCount}" VerticalAlignment="Bottom" FontSize="64" Foreground="#FFF5E6E6" IsEnabled="False" d:LayoutOverrides="HorizontalAlignment" Width="153.542" Height="81.84"/>
+                    <Grid HorizontalAlignment="Stretch" Height="85" Margin="274.667,375.666,633,0" Grid.Row="1" VerticalAlignment="Top" Width="Auto">
+                        <Viewbox Stretch="Uniform"  Grid.Row="0"  VerticalAlignment="Bottom" HorizontalAlignment="Left" StretchDirection="Both" >
+                            <TextBlock x:Name="A1textBlockMTDSalesValue" HorizontalAlignment="Left" Grid.Row="0"  Text="{Binding MTDsales}" VerticalAlignment="Top" FontSize="64" Foreground="#FFF5E6E6" IsEnabled="False"/>
+
+                        </Viewbox>
+                    </Grid>-->
+                    <!--<Grid HorizontalAlignment="Right"  Height="85" Margin="0,375.666,41,0" Grid.Row="1" VerticalAlignment="Top" Width="400">
+                        <Viewbox Stretch="Uniform"  Grid.Row="0"  VerticalAlignment="Bottom" HorizontalAlignment="Left" StretchDirection="Both" >
+
+                            <TextBlock x:Name="A1textBlockMonthlyAvgSalesValue" HorizontalAlignment="Right"  Grid.Row="1"  Text="{Binding YTDSales}" VerticalAlignment="Top" FontSize="64" Foreground="#FFF5E6E6" IsEnabled="False"/>
+                        </Viewbox>
+                    </Grid>-->
+                    <!-- <TextBlock Grid.Row="0" Text="{Binding SelectedReportType.Name,UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource CusDetailHeaderLabel}" /> -->
+                    <!-- <DataGrid Grid.Row="1" Height="615" Width="1500" ItemsSource="{Binding Report500101}"/> -->
+
+                </Grid>
+            </Border>
+
+            <Grid Grid.Column="1" Visibility="{Binding ReportSettleAllVisible}" 
+                    Grid.RowSpan="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="21"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0"/>
+                <TextBlock Grid.Row="1" Text="Would you like to settle all open transactions?" 
+                           HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+                           TextAlignment="Center"  FontWeight="Light" FontSize="36" 
+                           Foreground="#FFD6CECE" Background="Transparent"/>
+
+                <Button Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top"
+                        Width="220" Height="50" 
+                        Command="{Binding SettleCommand}"
+                        Style="{DynamicResource SettleButtonStyle}" 
+                        Tag="{DynamicResource Path_RightArrow}"/>
+            </Grid>
+
+                <!--Commented      <Border Grid.Column="2" Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                    <RowDefinition Height="51"></RowDefinition>
+                    <RowDefinition Height="340"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="LightBlue"/>
+                    <TextBlock Grid.Row="0" FontFamily="FontArialRoundedMTStd" FontSize="20" Text="Reports" Foreground="Black"/>
+                </Grid>
+            </Border>
+
+-->
+     
+            <Border Grid.Column="2" Background="#1B1C1F">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="110"/>
+                        <RowDefinition Height="926"/>
+                    </Grid.RowDefinitions>
+                    <!--<TextBlock Grid.Row="0" Tag="{StaticResource Icon_bord_reports}"  Text="Reports" FontWeight="Bold" FontSize="44" VerticalAlignment="Center"></TextBlock>-->
+                    <Button Grid.Row="0"
+                        Content="REPORTS"
+                        Tag="{StaticResource Icon_bord_reports}"
+                        Style="{StaticResource ViewTitleButtonStyle}"/>
+                    <Grid Grid.Row="1" ScrollViewer.PanningMode="VerticalOnly" ScrollViewer.VerticalScrollBarVisibility="Hidden" >
+
+                        <ItemsControl x:Name="ReportType" ItemsSource="{Binding AllTypes}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+
+                                    <Button Height="100" HorizontalAlignment="Stretch" Command="{Binding DataContext.SelectReportTypesCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}" Content="{Binding Name}" Style="{DynamicResource CategoryButtonStyle}"/>
+
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+
+
+
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="ManipulationBoundaryFeedback">
+
+                                <se:CallMethodAction MethodName="ManipulationBoundaryFeedbackHandler" TargetObject="{Binding}"></se:CallMethodAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Grid>
+
+
+
+
+                </Grid>
+            </Border>
+
+
+
+
+        </Grid>
+
+
+    </DataTemplate>
+
+</ResourceDictionary>

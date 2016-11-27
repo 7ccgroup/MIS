@@ -1,0 +1,124 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:vm="clr-namespace:BaseAppUI.ViewModel.Notifies"
+                    xmlns:controls="clr-namespace:BaseAppUI.Controls"
+                    >
+
+    <DataTemplate x:Key="CustomItemModifierView" DataType="{x:Type vm:CustomItemModifier}">
+
+        <Grid>
+
+            <Border Width="710" Height="874" Background="White" CornerRadius="16">
+                <Border.Effect>
+                    <DropShadowEffect></DropShadowEffect>
+                </Border.Effect>
+            </Border>
+
+            <Border Width="710" Height="874" Background="White" CornerRadius="16">
+
+                <Grid Margin="50,35,50,30">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="75"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0">
+                        <TextBlock Text="Add Item" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" Foreground="#757575" Margin="0,0,0,5"></TextBlock>
+                        
+                        <controls:InputControl FontSize="34" Text="{Binding CustomItemName}" Height="48" HorizontalAlignment="Stretch" Style="{DynamicResource ResetTextBoxStyle}"></controls:InputControl>
+
+                    </StackPanel>
+                  <!--  <TextBox  Grid.Row="0" Text="{Binding CustomItemName}" FontSize="34" FontWeight="Light" IsEnabled="True" Foreground="#292A2E" BorderThickness="0"></TextBox>
+-->
+
+                    <Grid Grid.Row="2" HorizontalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="55"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="18"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="90"></ColumnDefinition>
+                            <ColumnDefinition Width="19"></ColumnDefinition>
+                            <ColumnDefinition Width="27"></ColumnDefinition>
+                            <ColumnDefinition Width="274"></ColumnDefinition>
+                            <ColumnDefinition Width="28"></ColumnDefinition>
+                            <ColumnDefinition Width="27"></ColumnDefinition>
+                            <ColumnDefinition Width="109"></ColumnDefinition>
+
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="QUANTITY" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#9F9F9F" FontSize="16" FontWeight="Bold"></TextBlock>
+
+                        <StackPanel Grid.Row="0" Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Button Command="{Binding CustomItemCommand}" CommandParameter="{x:Static vm:CustomItemActionType.Subtract}" Width="50" Height="50" HorizontalAlignment="Left" Style="{DynamicResource ArrowButtonStyle}">
+                                <Image Source="{DynamicResource Icon_orderline_subtract}"></Image>
+
+                            </Button>
+
+                            <TextBlock Width="100" Text="{Binding Quantity}" VerticalAlignment="Center" FontSize="34" FontWeight="Light" Foreground="#282A2D" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+
+                            <Button Command="{Binding CustomItemCommand}" CommandParameter="{x:Static vm:CustomItemActionType.Addition}" Width="50" Height="50" HorizontalAlignment="Left" Style="{DynamicResource ArrowButtonStyle}">
+                                <Image Source="{DynamicResource Icon_orderline_addition}"></Image>
+
+                            </Button>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="PRICE" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#9F9F9F" FontSize="16" FontWeight="Bold"></TextBlock>
+
+                        <TextBlock Grid.Row="2" Grid.Column="3" Text="{Binding Price,StringFormat={}{0:C}}" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#282A2D" FontSize="44" ></TextBlock>
+
+                        <Button Grid.Row="2" Grid.Column="4" Height="28" Width="28" Command="{Binding SelectKeybordButton}" CommandParameter="{Binding ResetPrice}" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{DynamicResource ResetButtonStyle}" />
+                          
+                      
+
+                        <Line Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="4" Margin="0,0,0,0" VerticalAlignment="Bottom" X1="0" X2="{Binding ActualWidth,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Grid}}}" Stroke="#D8D8D8" StrokeThickness="2"></Line>
+
+                        <ItemsControl Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="4" Width="342" HorizontalAlignment="Center" VerticalAlignment="Top" ItemsSource="{Binding CalculatorButtons}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Width="94" Height="94" Margin="10"
+                                    
+                                    Command="{Binding DataContext.SelectKeybordButton,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ItemsControl}}" CommandParameter="{Binding}"
+                                    
+                                    VerticalAlignment="Center" HorizontalAlignment="Center" Content="{Binding Label}" Style="{DynamicResource CalculatorButtonStyle}"></Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel></WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                        </ItemsControl>
+
+
+                    </Grid>
+
+                   
+                    <DockPanel Grid.Row="3">
+                        <Button Command="{Binding CustomItemCommand}" CommandParameter="{x:Static vm:CustomItemActionType.Cancel}" Background="#F44336" HorizontalAlignment="Left" Content="CANCEL"  Width="180" Height="50" Style="{DynamicResource FlatButtonStyle}"></Button>
+                        <Button Command="{Binding CustomItemCommand}" CommandParameter="{x:Static vm:CustomItemActionType.Done}" Background="#4EB734" HorizontalAlignment="Right" Content="ADD TO ORDER"  Width="180" Height="50" Style="{DynamicResource FlatButtonStyle}"></Button>
+                    </DockPanel>
+
+                </Grid>
+
+
+
+
+            </Border>
+
+
+        </Grid>
+
+
+
+    </DataTemplate>
+</ResourceDictionary>

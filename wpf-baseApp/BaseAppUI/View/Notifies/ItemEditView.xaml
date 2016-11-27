@@ -1,0 +1,175 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:BaseAppUI.ViewModel.Notifies"
+                     xmlns:controls="clr-namespace:BaseAppUI.Controls"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+                    >
+    <DataTemplate x:Key="ItemEditView" DataType="{x:Type vm:ItemEdit}">
+
+        <Grid>
+
+
+            <Border Width="1012" Height="676" Background="White" CornerRadius="16">
+                <Border.Effect>
+                    <DropShadowEffect></DropShadowEffect>
+                </Border.Effect>
+            </Border>
+
+            <Border Width="1012" Height="676" Background="White" CornerRadius="16" >
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="420"/>
+                         <ColumnDefinition Width="180"/>
+                         <ColumnDefinition Width="200"/>
+                         <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="65"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+
+
+                        <RowDefinition Height="5"/>
+
+
+                    </Grid.RowDefinitions>
+
+                    <TextBlock  Grid.Row="0" Grid.ColumnSpan="5" Name="textBlockItemAddUpd" FontWeight="Bold" FontSize="44" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding SelectedEditItem.ActionMode}" Style="{DynamicResource POSpopupTextblock}"/>
+                    <Ellipse Grid.Row="1" Grid.ColumnSpan="5"  Width="Auto" Height="Auto" Fill="ForestGreen"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" x:Name="textBlockItemID" HorizontalAlignment="Right" Margin="0,8,0,0" Text="Item ID:" Style="{DynamicResource POSpopupTextblock}" Width="Auto" />
+                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="textBoxItemID" HorizontalAlignment="Left" Margin="5,5,5,5" Text="{Binding SelectedEditItem.itemID, UpdateSourceTrigger=Explicit}" Width="50" Style="{DynamicResource POSpopupTextbox}"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="2" x:Name="textBlockItemStatus" Text="Item Status:" Style="{DynamicResource POSpopupTextblock}" Margin="0,8,0,0" HorizontalAlignment="Right" Width="Auto"/>
+                    <controls:InputControl Grid.Row="2" Grid.Column="3" x:Name="textBoxItemStatus" HorizontalAlignment="Left" Margin="5,5,5,5" Text="{Binding SelectedEditItem.vItemStatus}" Style="{DynamicResource POSpopupTextbox}" Width="100"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" x:Name="textBlockItemDesc1" HorizontalAlignment="Right" Margin="0,8,0,0" Text="Name" Style="{DynamicResource POSpopupTextblock}" Width="Auto"/>
+                    <controls:InputControl Grid.Row="3" Grid.Column="1" x:Name="textBoxItemDesc1" HorizontalAlignment="left"  Text="{Binding SelectedEditItem.vItemDesc1}" Width="400" Style="{DynamicResource ResetTextBoxStyle}" Margin="5,5,5,5"/>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" x:Name="textBlockItemDesc2" HorizontalAlignment="Right"  Text="Description" Style="{DynamicResource POSpopupTextblock}" Margin="0,12,0,0" Width="Auto"/>
+                    <controls:InputControl Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" x:Name="textBoxItemDesc2" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="{Binding SelectedEditItem.vItemDesc2}" Width="780" Style="{DynamicResource ResetTextBoxStyle}" Margin="5,5,5,5"/>
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" x:Name="textBlockItemPrice" HorizontalAlignment="Right" Text="Price" Style="{DynamicResource POSpopupTextblock}" Margin="0,8,0,0" Width="Auto"/>
+                    <controls:InputControl Grid.Row="5" Grid.Column="1" x:Name="textBoxItemPrice" HorizontalAlignment="Left" Text="{Binding SelectedEditItem.vItemPrice}" Width="400" Style="{DynamicResource ResetTextBoxStyle}" Margin="5,5,5,5"/>
+
+                    <!--<TextBlock Grid.Row="5" x:Name="textBlockItemMinPrice" HorizontalAlignment="Right"  TextWrapping="Wrap" Text="Minimum Price:" Style="{DynamicResource POSpopupTextblock}" Margin="0,6.804,283.782,15.932" Width="197.212" d:LayoutOverrides="TopMargin, BottomMargin"/>
+                    <controls:InputControl Grid.Row="5" x:Name="textBoxItemMinPrice" HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding SelectedEditItem.vItemMinPrice}" VerticalAlignment="Stretch" Width="206" Style="{DynamicResource ResetTextBoxStyle}" Margin="0,3,74.963,8.4" Height="Auto" d:LayoutOverrides="TopMargin, BottomMargin"/>-->
+
+                    <TextBlock Grid.Row="6" Grid.Column="0" x:Name="textBlockItemCategory" HorizontalAlignment="Right" Text="Category" Style="{DynamicResource POSpopupTextblock}" Margin="0,8,0,0" Width="Auto"/>
+                    <controls:InputControl Grid.Row="6" Grid.Column="1" x:Name="textBoxItemCategory" HorizontalAlignment="Left" Text="{Binding SelectedEditItem.vCategoryShortDesc}" Style="{DynamicResource ResetTextBoxStyle}" Margin="5,5,5,5" Width="400"/>
+
+                    <TextBlock Grid.Row="6"  Grid.Column="2" x:Name="textBlockItemAvail" HorizontalAlignment="Right" Text="Availability" VerticalAlignment="Stretch" Style="{DynamicResource POSpopupTextblock}" Margin="0,8,0,0" Width="Auto"/>
+                    <controls:InputControl Grid.Row="6" Grid.Column="3" x:Name="textBoxItemAvail" HorizontalAlignment="Left" Text="{Binding SelectedEditItem.vItemAvailability}" Style="{DynamicResource ResetTextBoxStyle}" Margin="5,5,5,5" Width="180"/>
+
+
+                    <TextBlock Grid.Row="7" Grid.Column="0" x:Name="textBlockItemNotes" HorizontalAlignment="Right" Text="Notes" Style="{DynamicResource POSpopupTextblock}" Margin="0,8,0,0" Width="Auto"/>
+                    <controls:InputControl  Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" x:Name="textBoxItemNotes" HorizontalAlignment="Left" Text="{Binding SelectedEditItem.vItemNotes}"  Width="780" Style="{DynamicResource ResetTextBoxStyle}" Margin="5,5,5,5"/>
+
+                    <TextBlock Grid.Row="8"  Grid.Column="2" x:Name="textBlockEnteredBy" HorizontalAlignment="Right" Text="Entered By" VerticalAlignment="Stretch" Style="{DynamicResource POSpopupTextblock}" Margin="0,8,0,0" Width="Auto"/>
+                    <controls:InputControl Grid.Row="8" Grid.Column="3" x:Name="textBoxEnteredBy" HorizontalAlignment="Left" Text="{Binding SelectedEditItem.vEntryBy}" Style="{DynamicResource ResetTextBoxStyle}" Margin="5,5,5,5" Width="180"/>
+                    
+                    <TextBlock Grid.Row="8" Grid.Column="0" x:Name="textBlockItemVendor" HorizontalAlignment="Right" Text="Vendor" Style="{DynamicResource POSpopupTextblock}" Margin="0,8,0,0" Width="Auto"/>
+                    <controls:InputControl Grid.Row="8" Grid.Column="1" x:Name="textBoxItemVendor" HorizontalAlignment="Left" Text="{Binding SelectedEditItem.vItemVendor}" Width="400"  Style="{DynamicResource ResetTextBoxStyle}" Margin="5,5,5,5"/>
+                    
+                    <TextBlock Grid.Row="9" Grid.Column="0" x:Name="textBlockItemModifierLabel" HorizontalAlignment="Right" Text="Item Modifier" Style="{DynamicResource POSpopupTextblock}" Width="Auto"  Margin="0,8,0,0"/>
+                    <controls:InputControl Grid.Row="9" Grid.Column="1" x:Name="textBoxItemModifier" HorizontalAlignment="Left" Text="{Binding SelectedEditItem.vItemmodifier}" Style="{DynamicResource ResetTextBoxStyle}"  Width="400" Margin="5,5,5,5"/>
+                    
+                    <!--<TextBlock Grid.Row="9" x:Name="textBlockItemVendorContact" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Vendor Contact:" VerticalAlignment="Stretch" Style="{DynamicResource POSpopupTextblock}" Margin="36.785,5,0,6.4" Width="209.331" d:LayoutOverrides="TopMargin, BottomMargin"/>
+                    <controls:InputControl Grid.Row="10" x:Name="textBoxItemVendorContact" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding SelectedEditItem.vItemVendorContact}" VerticalAlignment="Stretch" Width="Auto"  Style="{DynamicResource ResetTextBoxStyle}" Margin="247.108,8.536,464.892,7.201" d:LayoutOverrides="TopMargin, BottomMargin"/>
+
+                    <TextBlock Grid.Row="10" x:Name="textBlockItemVendorPhone" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Vendor Phone:" VerticalAlignment="Stretch" Style="{DynamicResource POSpopupTextblock}" Margin="53.206,12.938,0,1.462" Width="180.902" d:LayoutOverrides="TopMargin, BottomMargin" />
+                    <controls:InputControl Grid.Row="11" x:Name="textBoxItemVendorPhone" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding SelectedEditItem.vItemVendorPhone}" VerticalAlignment="Stretch" Width="Auto"  Style="{DynamicResource ResetTextBoxStyle}" Margin="247.108,10.67,464.892,8.067" d:LayoutOverrides="TopMargin, BottomMargin"/>-->
+                    <Button Grid.Row="11" Grid.Column="0" Command="{Binding ItemEditCommand}" CommandParameter="{x:Static vm:ItemEditButton.Cancel}" Background="#F44336" HorizontalAlignment="Left" Content="Cancel"  Width="180" Height="Auto" Margin="20,0,0,0" Style="{DynamicResource IconButtonStyle}"/>
+                    <Button Grid.Row="11" Grid.Column="3" Command="{Binding ItemEditCommand}" CommandParameter="{x:Static vm:ItemEditButton.Save}" Background="#4EB734" HorizontalAlignment="Left" Content="Save"  Width="180" Height="Auto" Style="{DynamicResource SaveButtonStyle}"/>
+
+
+
+                </Grid>
+            </Border>
+         
+
+
+            <!--    </Grid> -->
+            <!--         <Grid Margin="32,32,45,32"> -->
+
+            <!--  <Grid.RowDefinitions>
+                        <RowDefinition Height="70"></RowDefinition>
+                        <RowDefinition Height="16"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+
+                    </Grid.RowDefinitions> 
+
+                    <DockPanel Grid.Row="0">
+                        <TextBlock  Text="{Binding Title}" FontSize="34" FontWeight="Light" Foreground="#292A2E"></TextBlock>
+
+                        <StackPanel HorizontalAlignment="Right">
+                            <TextBlock  FontSize="34" HorizontalAlignment="Center" FontWeight="Light" Foreground="#292A2E" Text="{Binding Subtotal,StringFormat={}{0:C}}"></TextBlock>
+                            <TextBlock  FontSize="16" HorizontalAlignment="Center" Margin="0,10,0,0" FontWeight="Light" Foreground="#757575" Text="{Binding Price,StringFormat={}{0:C} / item}"></TextBlock>
+
+                        </StackPanel>
+                    </DockPanel>
+
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="36"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="QUANTITY" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#9F9F9F" FontSize="16" FontWeight="Bold"></TextBlock>
+
+                        <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Button Command="{Binding ItemEditCommand}" CommandParameter="{x:Static vm:ItemEditButton.Subtract}" Width="50" Height="50" HorizontalAlignment="Left" Style="{DynamicResource ArrowButtonStyle}">
+                                <Image Source="{DynamicResource Icon_orderline_subtract}"></Image>
+
+                            </Button>
+
+                            <TextBlock Width="100" Text="{Binding Quantity}" VerticalAlignment="Center" FontSize="34" FontWeight="Light" Foreground="#282A2D" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+
+                            <Button Command="{Binding ItemEditCommand}" CommandParameter="{x:Static vm:ItemEditButton.Addition}" Width="50" Height="50" HorizontalAlignment="Left" Style="{DynamicResource ArrowButtonStyle}">
+                                <Image Source="{DynamicResource Icon_orderline_addition}"></Image>
+
+                            </Button>
+                        </StackPanel>
+
+                    </Grid>
+-->
+            <!--      <DockPanel Grid.Row="3">
+                        <Button Command="{Binding ItemEditCommand}" CommandParameter="{x:Static vm:ItemEditButton.Delete}" Background="#F44336" HorizontalAlignment="Left" Content="DELETE ITEM"  Width="180" Height="50" Style="{DynamicResource IconButtonStyle}"></Button>
+
+                        <Button Command="{Binding ItemEditCommand}" CommandParameter="{x:Static vm:ItemEditButton.Done}" Background="#4EB734" HorizontalAlignment="Right" Content="DONE"  Width="180" Height="50" Style="{DynamicResource IconButtonStyle}"></Button>
+
+                    </DockPanel> -->
+
+
+
+
+
+
+
+
+
+        </Grid>
+
+
+
+    </DataTemplate>
+</ResourceDictionary>

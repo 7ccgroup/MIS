@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sec="clr-namespace:BaseAppUI.View.Sections"
+                    >
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="DashboardView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="RegisterView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="OrdersView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="PaymentView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="ReportView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="ItemsView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="CustomersView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="LoginView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="ReportsMainView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="SettingsView.xaml"></ResourceDictionary>
+        
+    </ResourceDictionary.MergedDictionaries>
+
+    <sec:SectionViewSelector x:Key="SectionViewSelector" 
+                             DashboardView="{StaticResource DashboardView}"
+                             RegisterView="{StaticResource RegisterView}"
+                             OrdersView="{StaticResource OrdersView}"
+                             PaymentView="{StaticResource PaymentView}"
+                              ReportView="{StaticResource ReportView}"
+                             ItemsView="{StaticResource ItemsView}"
+                         CustomersView="{StaticResource CustomersView}"
+                             LoginView="{StaticResource LoginView}"
+                             ReportsMainView="{StaticResource ReportsMainView}"
+                             SettingsView="{StaticResource SettingsView}"
+                             >
+    </sec:SectionViewSelector>
+    
+</ResourceDictionary>

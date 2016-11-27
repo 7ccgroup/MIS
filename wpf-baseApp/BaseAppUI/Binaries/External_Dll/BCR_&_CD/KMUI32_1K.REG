@@ -1,0 +1,7 @@
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\KMUI32_1K]
+"Type"=dword:00000001
+"ErrorControl"=dword:00000001
+"Start"=dword:00000000
+"DisplayName"="KMUI32_1K"

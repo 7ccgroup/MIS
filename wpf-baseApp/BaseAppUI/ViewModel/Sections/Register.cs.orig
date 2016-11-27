@@ -1,0 +1,422 @@
+﻿using PosData.Entity;
+using PosUI.Configuration;
+using PosUI.Model;
+using PosUI.ViewModel.Sections.Partial;
+using PosUI.ViewModel.Sections.Partials;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+
+namespace PosUI.ViewModel.Sections
+{
+   public class Register:NotifyProperty,ISection
+    {
+       
+
+        private ObservableCollection<CategoryVM> _categories;
+        private DelegateCommand<string> _masterItemSearchCommand;
+        private DelegateCommand<OrderVM> _orderTypeModifierCommand;
+        private DelegateCommand _customItemAddCommand;
+
+
+        public ObservableCollection<CategoryVM> Categories
+        {
+            get {
+
+                if (_categories == null)
+                {
+                    _categories= new ObservableCollection<CategoryVM>(GConfig.POS_Setup.ItemCategories.Where(n=>n.vCategoryCode!="all-items" && n.vStatus!="hidden").Select(n => new CategoryVM(n,this)));
+                    CategoriesInitialized = true;
+                }
+                return _categories;
+            }
+            set { _categories = value;
+
+            OnPropertyChanged("Categories");
+            }
+        }
+
+        public bool CategoriesInitialized { get; set; }
+
+        private OrderVM _order;
+
+        public OrderVM Order
+        {
+            get { 
+                
+                return _order ?? (_order = new OrderVM()); }
+            set { _order = value;
+            OnPropertyChanged("Order");
+
+            }
+        }
+
+
+        MainVM _main;
+
+        CategoryVM FrequentCategory { get; set; }
+
+       public Register(MainVM main)
+       {
+           _main = main;
+
+          
+          
+
+           FrequentCategory = new CategoryVM(
+              new POS_ItemCategory { vCategoryShortDesc = "Frequent Items" },this) 
+          { CategoryType=CategoryType.Frequent, IsSelected = true };
+
+           Categories.Insert(0, FrequentCategory);
+
+           SelectCategoryCommand.Execute(FrequentCategory);
+
+       }
+       public void ManipulationBoundaryFeedbackHandler
+    (object sender, ManipulationBoundaryFeedbackEventArgs e)
+       {
+           e.Handled = true;
+       }
+
+
+
+
+
+       CategoryVM _selectedCategory;
+
+       public CategoryVM SelectedCategory
+       {
+           get { return _selectedCategory; }
+           set { _selectedCategory = value;
+
+           OnPropertyChanged("SelectedCategory");
+           }
+       }
+
+       private DelegateCommand<CategoryVM> _selectCategoryCommand;
+
+       public DelegateCommand<CategoryVM> SelectCategoryCommand
+       {
+           get { return _selectCategoryCommand ?? (_selectCategoryCommand = new DelegateCommand<CategoryVM>((e) => {
+
+               if (e == null) return;
+               if (SelectedCategory != e)
+               {
+
+                   if (SelectedCategory != null)
+                       SelectedCategory.IsSelected = false;
+
+
+                   SelectedCategory = e;
+                   SelectedCategory.IsSelected = true;
+
+               }
+           
+           })); }
+       }
+
+       private IList<ItemMasterVM> _selectedItemHistory;
+
+       public IList<ItemMasterVM> SelectedItemHistory
+       {
+           get { return _selectedItemHistory ?? (_selectedItemHistory = new List<ItemMasterVM>()); }
+       }
+
+
+       ScrollViewer _scroll;
+
+      public void Scroll_Loaded(object sender, RoutedEventArgs e)
+       {
+           _scroll = sender as ScrollViewer;
+       }
+      
+
+       private DelegateCommand<ItemMasterVM> _selectMasterItemCommand;
+
+       public DelegateCommand<ItemMasterVM> SelectMasterItemCommand
+       {
+           get
+           {
+               return _selectMasterItemCommand ?? (_selectMasterItemCommand = new DelegateCommand<ItemMasterVM>((e) =>
+               {
+
+
+
+                  var existitem=  Order.OrderLines.FirstOrDefault(n => n._item==e._item);
+
+                  if (existitem == null)
+                  {
+                      SetItemVisual(e);
+                      existitem = new OrderLineVM(e._item, Order) {ItemCreated=true,Brush=e.BorderBrush };
+                      Order.OrderLines.Add(existitem);
+                      Order.RefreshValues();
+                   
+
+                    
+                      _scroll.ScrollToBottom();
+                 
+                     
+                  }
+                  else
+                  {
+                      existitem.Quantity++;
+                   
+                  }
+
+              
+
+                  existitem.QuantityChanged = false;
+                  existitem.QuantityChanged = true;
+
+
+
+               }));
+           }
+       }
+
+       PosUI.Common.ColorGenerator _colorgenerator = new Common.ColorGenerator();
+       public void SetItemVisual(ItemMasterVM item)
+       {
+        
+           item.BorderBrush = _colorgenerator.GetNextBrush();
+           SelectedItemHistory.Add(item);
+       }
+
+
+     
+
+      
+
+
+       private DelegateCommand _cancelCommand;
+
+       public DelegateCommand CancelCommand
+       {
+           get { return _cancelCommand ?? (_cancelCommand = new DelegateCommand(() => {
+
+               if (Order.Id != 0 && GConfig.ShouldKitchenCancel == false)
+               {
+                   Order.ResetUnSavedChanges();
+
+                   //var e = Order;
+                   //Order = null;
+                   //Order = e;
+               }
+
+               RemoveSelection();
+
+               Order = null;
+<<<<<<< HEAD
+             
+=======
+               RemoveSelection();
+               GConfig.ShouldKitchenCancel = true;
+>>>>>>> 3f1c7cd4305805c04836e6e9df67f2a6784530f3
+
+           
+           })); }
+           
+       }
+
+
+       public void RemoveSelection()
+       {
+           RemoveVisuals();
+           UpdateFrequentCategory();
+           SelectedItemHistory.Clear();
+           SelectCategoryCommand.Execute(FrequentCategory);
+
+       }
+
+       private void RemoveVisuals()
+       {
+
+           foreach (var item in SelectedItemHistory)
+               item.BorderBrush = null;
+
+           _colorgenerator.Reset();
+       }
+
+       private void UpdateFrequentCategory()
+       {
+           foreach (var item in SelectedItemHistory.Where(n=> !CategoryVM.FrequentItems.Any(m=>m._item.Id==n._item.Id)))
+           {
+               CategoryVM.FrequentItems.Add(item);
+           }
+
+       }
+
+        public DelegateCommand<OrderVM> KitchenPrintCommand
+        {
+            get
+            {
+                return MainVM.Main.KitchenPrintCommand;
+            }
+        }
+
+        
+
+        private DelegateCommand _returnCommand;
+
+       public DelegateCommand ReturnCommand
+       {
+           get
+           {
+               return _returnCommand ?? (_returnCommand = new DelegateCommand(() =>
+               {
+
+                   _main.SwitchToView(SectionType.Dashboard);
+
+               }));
+           }
+
+       }
+
+       CategoryVM _searchCategory;
+
+       public CategoryVM SearchCategory
+       {
+           get { return _searchCategory ?? (_searchCategory = new CategoryVM(null, this) {CategoryType=CategoryType.Search }); }
+       }
+       public DelegateCommand<string> MasterItemSearchCommand
+       {
+           get { return _masterItemSearchCommand ?? (_masterItemSearchCommand = new DelegateCommand<string>(e => {
+
+              
+
+               
+               CategoryVM.SearchItems.Clear();
+
+               string searchedtext = e.ToLowerInvariant();
+
+               var results = Categories.Where(n => n.CategoryType==CategoryType.None).SelectMany(n => n.Items.Where(m => m._item.vItemDesc1.ToLowerInvariant().Contains(searchedtext)).Select(m => m));
+
+              
+
+               foreach (var s in results)
+               {
+                   CategoryVM.SearchItems.Add(s);
+
+               }
+             
+
+
+              
+
+
+               SelectCategoryCommand.Execute(SearchCategory);
+               
+              
+           
+           })); }
+       }
+
+
+
+
+       public SectionType PreviousSection { get; set; }
+
+
+       public SectionType SectionType
+       {
+           get { return Model.SectionType.Register; }
+       }
+
+
+       public DelegateCommand<OrderVM> OrderTypeModifierCommand
+       {
+           get { return _orderTypeModifierCommand ?? (_orderTypeModifierCommand = new DelegateCommand<OrderVM>(e => {
+
+
+            new Notifies.OrderTypeModifier(e).Show();
+
+           
+           })); }
+       }
+
+       public DelegateCommand CustomItemAddCommand
+       {
+           get { return _customItemAddCommand ?? (_customItemAddCommand = new DelegateCommand(() => {
+
+
+               new Notifies.CustomItemModifier(AddCustomItem).Show();
+              
+           
+           })); }
+           
+       }
+
+
+       private void AddCustomItem(decimal price,int quantity) {
+
+           var cat = GConfig.POS_Setup.ItemCategories.FirstOrDefault(n => n.vCategoryCode == "custom-cat");
+
+
+           if (cat == null)
+           {
+               DateTime date = DateTime.Now;
+
+               var item = new POS_ItemMaster() { vItemDesc1 = "Custom Item", dStartDate = date, dEndDate = date };
+               cat = new POS_ItemCategory
+               {
+                   vCategoryCode = "custom-cat",
+                   vStatus = "hidden",
+                   vCategoryShortDesc = "Custom",
+                   dEndDt = date,
+                   dStartDt = date,
+                   POS_ItemMasters = new List<POS_ItemMaster> { item }
+               };
+
+
+               GConfig.POS_Setup.ItemCategories.Add(cat);
+               GConfig.DAL.SaveChanges();
+           }
+
+           var customitem = cat.POS_ItemMasters.FirstOrDefault();
+
+           if (customitem != null)
+           {
+               OrderLineVM line = new OrderLineVM(customitem, Order, new POS_OrderDetails()
+               {
+                   POS_OrderHeaderId = Order._orderHeader.Id,
+                   POS_ItemMasterId = customitem.Id,
+
+                   fLineItemPrice = price,
+                   fOrderQty = quantity,
+                   fLineSubTotal = price * quantity,
+
+               })
+               {
+                   ItemCreated = true,
+                   QuantityChanged=true
+               };
+
+
+
+               Order.OrderLines.Add(line);
+              
+              
+
+               Order.RefreshValues();
+
+               _scroll.ScrollToBottom();
+
+
+
+
+           }
+
+       }
+
+    }
+}

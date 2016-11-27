@@ -1,0 +1,229 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <DataTemplate x:Key="CashPaymentView">
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="110" />
+                <RowDefinition Height="2" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="22,4,12,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           VerticalAlignment="Center"
+                           FontSize="44"
+                           FontWeight="Light"
+                           Foreground="#292A2E"
+                           Text="Payment" />
+                <Button Grid.Column="1"
+                        Width="155"
+                        Height="50"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Visibility="{Binding SplitButtonVisible}"
+                        Command="{Binding SplitPaymentCommand}"
+                        Style="{DynamicResource SplitButtonStyle}" />
+                <TextBlock Grid.Column="2"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           FontSize="44"
+                           FontWeight="Light"
+                           Foreground="#292A2E"
+                           Text="{Binding AllTotal,
+                                          StringFormat=\{0:C\}}" />
+
+            </Grid>
+            <Line Grid.Row="1"
+                  VerticalAlignment="Top"
+                  Stroke="#D8D8D8"
+                  StrokeThickness="1"
+                  X1="0"
+                  X2="{Binding ActualWidth,
+                               RelativeSource={RelativeSource AncestorType=Grid,
+                                                              Mode=FindAncestor}}" />
+
+            <Grid Grid.Row="2">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="33" />
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="33" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="38" />
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="13" />
+                    <RowDefinition />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="32" />
+
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="1"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="18"
+                           FontWeight="Light"
+                           Foreground="#757575"
+                           Text="Select amount or enter manually" />
+
+                <ItemsControl Grid.Row="3"
+                              HorizontalAlignment="Center"
+                              ItemsSource="{Binding SelectableAmounts}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Width="134"
+                                    Height="48"
+                                    Margin="15,0,15,0"
+                                    Command="{Binding DataContext.SelectAmountCommand,
+                                                      RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                     AncestorType=ItemsControl}}"
+                                    CommandParameter="{Binding}"
+                                    Content="{Binding DisplayValue}"
+                                    Style="{DynamicResource SelectButtonStyle}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+
+                <Grid Grid.Row="5" HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="23" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="27" />
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="250" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="300" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <Line Grid.RowSpan="5"
+                          Grid.Column="3"
+                          HorizontalAlignment="Right"
+                          Stroke="#D8D8D8"
+                          StrokeThickness="1"
+                          Y1="0"
+                          Y2="{Binding ActualHeight,
+                                       RelativeSource={RelativeSource AncestorType=Grid,
+                                                                      Mode=FindAncestor}}" />
+
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Foreground="#737373"
+                               Text="TENDERED AMOUNT" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="4"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Foreground="#737373"
+                               Text="CHANGE DUE" />
+
+
+                    <Button Grid.Row="3"
+                            Grid.Column="0"
+                            Width="54"
+                            Height="54"
+                            VerticalAlignment="Top"
+                            Command="{Binding DataContext.SelectTenderButton,
+                                              RelativeSource={RelativeSource TemplatedParent}}"
+                            CommandParameter="{Binding}"
+                            Content="X"
+                            DataContext="{Binding ResetTender}"
+                            Foreground="#7F7F7F"
+                            Style="{DynamicResource CalculatorButtonStyle}" />
+
+                    <Viewbox Grid.Row="3" Grid.Column="1">
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="44"
+                                   FontWeight="Bold"
+                                   Foreground="#737373"
+                                   Text="{Binding Tendered,
+                                                  StringFormat={}{0:C}}" />
+                    </Viewbox>
+                    <Viewbox Grid.Row="3"
+                             Grid.Column="4"
+                             HorizontalAlignment="Right">
+                        <TextBlock x:Name="tbchange"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="44"
+                                   FontWeight="Bold"
+                                   Foreground="#F44336"
+                                   Text="{Binding Change,
+                                                  StringFormat={}{0:C}}" />
+
+                    </Viewbox>
+
+                </Grid>
+
+                <ItemsControl Grid.Row="7"
+                              Width="342"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Top"
+                              ItemsSource="{Binding CalculatorButtons}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Width="94"
+                                    Height="94"
+                                    Margin="10"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Command="{Binding DataContext.SelectTenderButton,
+                                                      RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                     AncestorType=ItemsControl}}"
+                                    CommandParameter="{Binding}"
+                                    Content="{Binding Label}"
+                                    Style="{DynamicResource CalculatorButtonStyle}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                </ItemsControl>
+
+                <Button Grid.Row="8"
+                        Width="290"
+                        Height="50"
+                        HorizontalAlignment="Center"
+                        Background="#0CBF88"
+                        Command="{Binding CompleteCashPaymentCommand}"
+                        Content="COMPLETE PAYMENT"
+                        Style="{DynamicResource FlatButtonStyle}" />
+
+            </Grid>
+
+        </Grid>
+
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding IsValidTender}" Value="True">
+                <Setter TargetName="tbchange" Property="Foreground" Value="#0CBF88" />
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+</ResourceDictionary>

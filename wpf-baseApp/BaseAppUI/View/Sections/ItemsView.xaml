@@ -1,0 +1,295 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:BaseAppUI.ViewModel.Sections"
+                    xmlns:common="clr-namespace:BaseAppUI.Common"
+                       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                    xmlns:se="http://schemas.microsoft.com/expression/2010/interactions"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    >
+
+    <!--<common:TestValueConverter x:Key="test"></common:TestValueConverter>-->
+
+    <Style x:Key="TableHeaderLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="15"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+
+
+    </Style>
+    <Style x:Key="TableRowLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="22"></Setter>
+        <Setter Property="Foreground" Value="#D4D4D5"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="TextWrapping" Value="Wrap"></Setter>
+
+
+
+    </Style>
+
+    <Style x:Key="ItemDetailLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="18"></Setter>
+        <Setter Property="Foreground" Value="#212121"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+    </Style>
+    <Style x:Key="ItemDetailFieldValue" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="18"></Setter>
+        <Setter Property="Foreground" Value="#9A9A9A"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+    </Style>
+
+
+    <DataTemplate x:Key="ItemsView" DataType="{x:Type vm:Items}">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="506"></ColumnDefinition>
+                <ColumnDefinition Width="1200"></ColumnDefinition>
+                <ColumnDefinition Width="214"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Background="White" >
+                <Grid Margin="37,22,47,32" >
+                    <!--DataContext="{Binding SelectedItem}" why is this datacontext needed.-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="51"></RowDefinition>
+                        <RowDefinition Height="94"></RowDefinition>
+                        <RowDefinition Height="22"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="1"></RowDefinition>
+
+
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Row="0" Width="130" Height="51" HorizontalAlignment="Left"
+                            Command="{Binding DataContext.ReturnCommand,RelativeSource={RelativeSource TemplatedParent}}"
+                            Style="{DynamicResource BackButtonStyle}">
+
+                    </Button>
+
+                    <DockPanel Grid.Row="1">
+                        <TextBlock VerticalAlignment="Center" FontWeight="Light" FontSize="32" Foreground="#292A2E">
+                            <Run Text="ITEM #"></Run>
+                            <Run Text="{Binding SelectMasterItem.itemID, Mode=OneWay,TargetNullValue= - }"></Run>
+                        </TextBlock>
+                        <Button  Grid.Column="3" Background="#0CBF88" 
+                                 Command="{Binding SelectLineItemCommand}" 
+                                 CommandParameter="{Binding SelectMasterItem}" 
+                                 IsEnabled="{Binding RecordSelected,UpdateSourceTrigger=PropertyChanged}"
+                                 HorizontalAlignment="Right" VerticalAlignment="Center" Content="EDIT"  Width="150" Height="50" Style="{DynamicResource FlatButtonStyle}" >
+                            
+                        </Button>
+
+                       
+                        <!--  SelectItemEditCommand IsHitTestVisible="{Binding IsEditEnabled,FallbackValue=False}" 
+                                 Visibility="{Binding EditVisibility,FallbackValue=Collapsed}"this was commented by SAA 4/5 used to make the button visible-->
+                        
+                    </DockPanel>
+                    <Grid Grid.Row="3" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="12"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="1"></ColumnDefinition>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="240"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                    <!--    <TextBlock Grid.Row="0" Grid.Column="1" Text="DATE / TIME" Style="{DynamicResource CusDetailHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding SelectMasterItem101.Id,StringFormat={}{0:MMM dd\, yyyy HH:mm},TargetNullValue= - }" Style="{DynamicResource CusDetailLabel}"></TextBlock>
+-->
+
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="Name" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding SelectMasterItem.vItemDesc1}" Style="{DynamicResource ItemDetailFieldValue}" ></TextBlock>
+                        <TextBlock Grid.Row="4" Grid.Column="1" Text="Category" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding Path=SelectMasterItem.vCategoryShortDesc,TargetNullValue= - }" Style="{DynamicResource ItemDetailFieldValue}"></TextBlock>
+                        <TextBlock Grid.Row="6" Grid.Column="1" Text="Price" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding SelectMasterItem.vItemPrice,TargetNullValue= - }" Style="{DynamicResource ItemDetailFieldValue}"></TextBlock>
+                        <TextBlock Grid.Row="8" Grid.Column="1" Text="Vendor" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Grid.Row="8" Grid.Column="2" Text="{Binding SelectMasterItem.vItemVendor,TargetNullValue= - }" Style="{DynamicResource ItemDetailFieldValue}"></TextBlock>
+                        <TextBlock Grid.Row="10" Grid.Column="1" Text="Availability" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectMasterItem.vItemAvailability,TargetNullValue= - }" Style="{DynamicResource ItemDetailFieldValue}"></TextBlock>
+                        <TextBlock Grid.Row="12" Grid.Column="1" Text="Item Modifier" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Grid.Row="12" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectMasterItem.vItemmodifier,TargetNullValue= - }" Style="{DynamicResource ItemDetailFieldValue}"></TextBlock>
+                        <TextBlock Grid.Row="14" Grid.Column="1" Text="Status" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Grid.Row="14" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectMasterItem.vItemStatus,TargetNullValue= - }" Style="{DynamicResource ItemDetailFieldValue}"></TextBlock>
+                        <TextBlock Grid.Row="16" Grid.Column="1" Text="Notes" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Grid.Row="16" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectMasterItem.vItemNotes,TargetNullValue= - }" Style="{DynamicResource ItemDetailFieldValue}"></TextBlock>
+                        <TextBlock Grid.Row="18" Grid.Column="1" Text="Entered By" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Grid.Row="18" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectMasterItem.vEntryBy,TargetNullValue= - }" Style="{DynamicResource ItemDetailFieldValue}"></TextBlock>
+
+                        <TextBlock Grid.Row="20" Grid.Column="1" Text="Description" VerticalAlignment="Top" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Grid.Row="20" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectMasterItem.vItemDesc2}" Style="{DynamicResource ItemDetailFieldValue}" VerticalAlignment="Top" TextWrapping="Wrap"></TextBlock>
+
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" HorizontalAlignment="Right"  >
+                            <Image Source="{Binding CategoryIcon}"></Image>
+                        </StackPanel>
+                        <Button  Grid.Row="24" Grid.Column="2" Background="RoyalBlue" 
+                                 Command="{Binding SelectLineItemAddCommand}" 
+                                 CommandParameter="{Binding SelectMasterItem}" 
+                                 Visibility="{Binding EnableItemAdd}"
+                             
+                                 IsEnabled="{Binding RecordSelected,UpdateSourceTrigger=PropertyChanged}"
+                                 HorizontalAlignment="Right" VerticalAlignment="Center" Content="ADD ITEM"  Width="150" Height="50" Style="{DynamicResource FlatButtonStyle}" >
+
+                        </Button>
+                    </Grid>
+
+
+
+                </Grid>
+            </Border>
+            <Border Grid.Column="1" Background="#292A2E">
+
+                <Grid Margin="24,0,24,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="110"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="370"></ColumnDefinition>
+
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Items" FontWeight="Bold" FontSize="44" VerticalAlignment="Center"></TextBlock>
+
+                        <!--<TextBox Grid.Column="2"  Height="48" Width="350" VerticalAlignment="Center" Style="{DynamicResource SearchBoxStyle}"
+                                Tag="{Binding MasterItemSearchCommand}"
+                                 ></TextBox> uncomment when search function is available.-->
+
+                        <Line Grid.ColumnSpan="3" VerticalAlignment="Bottom" X1="0" X2="{Binding ActualWidth,RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor}}" Stroke="#4C4D50" StrokeThickness="1" />
+                    </Grid>
+
+                    <ScrollViewer Grid.Row="1" Margin="0,16,0,0" ScrollViewer.PanningMode="VerticalOnly" ScrollViewer.VerticalScrollBarVisibility="Hidden" >
+                        <ItemsControl   ItemsSource="{Binding ItemsDisplayByCategory,UpdateSourceTrigger=PropertyChanged}">
+                            <!--DataContext="{Binding ItemCategory}"-->
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Width="172" Height="172" Margin="18" Command="{Binding DataContext.SelectMasterItemCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ItemsControl}}" CommandParameter="{Binding }" Style="{DynamicResource RtButtonStyle}">
+                                        <Button.Content>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="18"></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition Height="14"></RowDefinition>
+                                                    <RowDefinition Height="18"></RowDefinition>
+                                                    <RowDefinition Height="10"></RowDefinition>
+                                                    <RowDefinition Height="14"></RowDefinition>
+                                                    <RowDefinition Height="26"></RowDefinition>
+                                                </Grid.RowDefinitions>
+
+                                                <Border Grid.Row="1" MinHeight="72" VerticalAlignment="Bottom">
+                                                    <TextBlock VerticalAlignment="Center" Text="{Binding vItemDesc1}" Width="100" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                                                </Border>
+                                                <TextBlock Grid.Row="3" VerticalAlignment="Center" Text="{Binding vItemPrice,StringFormat={}{0:C}}" FontSize="18"  TextAlignment="Center"></TextBlock>
+
+                                                <TextBlock Grid.Row="5" VerticalAlignment="Center" Text="{Binding RegularPrice,StringFormat={}{0:C},TargetNullValue={x:Static sys:String.Empty}}"  TextDecorations="Strikethrough" Foreground="#767779" FontSize="14" TextAlignment="Center"></TextBlock>
+
+                                            </Grid>
+
+
+                                        </Button.Content>
+
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel></WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="ManipulationBoundaryFeedback">
+
+                                <se:CallMethodAction MethodName="ManipulationBoundaryFeedbackHandler" TargetObject="{Binding}"></se:CallMethodAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ScrollViewer>
+
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="2" Background="#1B1C1F">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="110"></RowDefinition>
+                        <RowDefinition Height="926"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+
+
+
+                    <ScrollViewer Grid.Row="1" ScrollViewer.PanningMode="VerticalOnly" ScrollViewer.VerticalScrollBarVisibility="Hidden" >
+
+                        <ItemsControl ItemsSource="{Binding CategoriesList}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+
+                                    <Button Height="100" HorizontalAlignment="Stretch" Command="{Binding DataContext.SelectCategoryCommand,RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" Content="{Binding vCategoryShortDesc}" Style="{DynamicResource CategoryButtonStyle}"></Button>
+
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel></StackPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+
+
+
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="ManipulationBoundaryFeedback">
+
+                                <se:CallMethodAction MethodName="ManipulationBoundaryFeedbackHandler" TargetObject="{Binding}"></se:CallMethodAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ScrollViewer>
+
+
+
+
+                </Grid>
+            </Border>
+        </Grid>
+
+
+    </DataTemplate>
+</ResourceDictionary>

@@ -1,0 +1,82 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:BaseAppUI.Controls"
+                    xmlns:sec="clr-namespace:BaseAppUI.View.Sections.Payments.Split"
+                    >
+    
+    
+   
+    <DataTemplate x:Key="EvenlySplitView">
+
+        <controls:PosScrollViewer DataContext="{Binding Content}" >
+            <ItemsControl ItemsSource="{Binding ReceiptSplits}" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Control Style="{DynamicResource SplitReceiptStyle}" Margin="39,10,39,10"></Control>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+
+
+        </controls:PosScrollViewer>
+
+    </DataTemplate>
+    <DataTemplate x:Key="AmountBySplitView">
+
+        <Grid DataContext="{Binding Content}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="350"></ColumnDefinition>
+
+            </Grid.ColumnDefinitions>
+            <controls:PosScrollViewer Grid.Column="0">
+                <ItemsControl ItemsSource="{Binding ReceiptSplits}" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Control Style="{DynamicResource SplitReceiptStyle}" Margin="39,10,39,10"></Control>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel></WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+               
+            </controls:PosScrollViewer>
+            <ItemsControl Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" ItemsSource="{Binding CalculatorButtons}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Width="94" Height="94" Margin="10"
+                                    
+                                    Command="{Binding DataContext.SelectKeybordButton,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ItemsControl}}" CommandParameter="{Binding}"
+                                    
+                                    VerticalAlignment="Center" HorizontalAlignment="Center" Content="{Binding Label}" Style="{DynamicResource CalculatorButtonStyle}"></Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+            </ItemsControl>
+
+
+        </Grid>
+        
+       
+    </DataTemplate>
+
+    <sec:SplitViewSelector x:Key="SplitViewSelector" 
+                           EvenlySplitView="{StaticResource EvenlySplitView}"
+                           AmountBySplitView="{StaticResource AmountBySplitView}"
+                           
+                           ></sec:SplitViewSelector>
+
+</ResourceDictionary>

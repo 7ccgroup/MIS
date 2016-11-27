@@ -1,0 +1,159 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:BaseAppUI.Sdk.Receipts"
+                    >
+
+    <DataTemplate x:Key="CustomerReceiptView" DataType="{x:Type vm:ReceiptModel}">
+        <DataTemplate.Resources>
+            <Style x:Key="ReceiptTextStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="FontFamily" Value="FontArialRoundedMTStd" ></Setter>
+                <Setter Property="FontSize" Value="10"></Setter>
+                <Setter Property="TextTrimming" Value="CharacterEllipsis"></Setter>
+                <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                <Setter Property="TextWrapping" Value="Wrap"></Setter>
+            </Style>
+        </DataTemplate.Resources>
+        <Viewbox Stretch="Uniform">
+            <StackPanel Margin="16,34,16,34" VerticalAlignment="Top" Width="230">
+                <TextBlock Text="{Binding StoreName}" FontWeight="Bold" FontSize="14" Style="{StaticResource ReceiptTextStyle}"/>
+
+                <StackPanel Margin="8,14,8,0" HorizontalAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="4"></ColumnDefinition>
+                            <ColumnDefinition Width="77"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <TextBlock Grid.Column="0" Text="{Binding Address1}" Style="{StaticResource ReceiptTextStyle}"/>
+                            <TextBlock Text="{Binding Address2}" Margin="0,4" Style="{StaticResource ReceiptTextStyle}"/>
+                            <TextBlock Text="{Binding  Phone}" Style="{StaticResource ReceiptTextStyle}"/>
+
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right">
+                            <TextBlock Grid.Column="2" Text="{Binding Date}" HorizontalAlignment="Right"  Style="{StaticResource ReceiptTextStyle}"/>
+
+
+                            <TextBlock Text="{Binding Time}" Margin="0,4" HorizontalAlignment="Right"  Style="{StaticResource ReceiptTextStyle}"/>
+
+
+                            <TextBlock Text="{Binding  CustomerName}" HorizontalAlignment="Right"  Style="{StaticResource ReceiptTextStyle}"/>
+
+                        </StackPanel>
+                        
+                    </Grid>
+
+                   <Line Stroke="Black" StrokeThickness="3" Margin="0,12,0,12" HorizontalAlignment="Stretch" X1="0" X2="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=StackPanel}}"></Line>
+                    <DockPanel>
+                        <TextBlock Text="{Binding ReceiptNo, StringFormat=Order #\{0\}}" HorizontalAlignment="Left" Style="{StaticResource ReceiptTextStyle}" FontSize="10"/>
+                        <TextBlock Text="{Binding PaymentType}" HorizontalAlignment="Right" Style="{StaticResource ReceiptTextStyle}" FontSize="10" />
+
+                    </DockPanel>
+
+                    <Line Stroke="Black" StrokeThickness="1" Margin="0,12,0,20" HorizontalAlignment="Stretch" X1="0" X2="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=StackPanel}}"></Line>
+
+                 
+                    <ItemsControl ItemsSource="{Binding Lines}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel Margin="0,2">
+                                    <StackPanel MaxWidth="150">
+                                        <TextBlock Text="{Binding Title}" FontWeight="SemiBold"  FontSize="11" Style="{StaticResource ReceiptTextStyle}"/>
+                                        <TextBlock Text="{Binding Comments}" FontWeight="Normal"  FontSize="10" Style="{StaticResource ReceiptTextStyle}"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Amount}" FontWeight="SemiBold" FontSize="11" HorizontalAlignment="Right" Style="{StaticResource ReceiptTextStyle}"/>
+                                </DockPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel></StackPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+
+                  
+                    <Line Stroke="Black" StrokeThickness="1" Margin="0,12,0,12" HorizontalAlignment="Stretch" X1="0" X2="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=StackPanel}}"></Line>
+
+                    <DockPanel>
+                        <TextBlock Text="Subtotal" FontWeight="Bold" Style="{StaticResource ReceiptTextStyle}"/>
+                        <TextBlock Text="{Binding Subtotal}"  FontWeight="Bold" HorizontalAlignment="Right" Style="{StaticResource ReceiptTextStyle}"/>
+                    </DockPanel>
+                    <DockPanel Margin="0,4,0,0">
+
+                        <TextBlock Text="{Binding Tax1Label}" FontWeight="Regular" Style="{StaticResource ReceiptTextStyle}"/>
+                        <TextBlock Text="{Binding Tax1}" FontWeight="Regular" HorizontalAlignment="Right" Style="{StaticResource ReceiptTextStyle}"/>
+                        
+                    </DockPanel>
+                    
+                    <DockPanel Margin="0,4,0,0">
+
+                        <TextBlock Text="{Binding Tax2Label}" FontWeight="Regular" Style="{StaticResource ReceiptTextStyle}"/>
+                        <TextBlock Text="{Binding Tax2}"  FontWeight="Regular" HorizontalAlignment="Right" Style="{StaticResource ReceiptTextStyle}"/>
+
+                    </DockPanel>
+
+                    <DockPanel Margin="0,4,0,0" Visibility="{Binding GratuitySelected,Converter={StaticResource BoolToVis}}">
+
+                        <TextBlock Text="{Binding GratuityLabel}" FontWeight="Regular" Style="{StaticResource ReceiptTextStyle}"/>
+                        <TextBlock Text="{Binding Gratuity}"  FontWeight="Regular" HorizontalAlignment="Right" Style="{StaticResource ReceiptTextStyle}"/>
+
+                    </DockPanel>
+                    <DockPanel Margin="0,4,0,0" Visibility="{Binding DiscountSelected,Converter={StaticResource BoolToVis}}">
+
+                        <TextBlock Text="{Binding DiscountLabel}" FontWeight="Regular" Style="{StaticResource ReceiptTextStyle}"/>
+                        <TextBlock Text="{Binding DiscountAmt}"  FontWeight="Regular" HorizontalAlignment="Right" Style="{StaticResource ReceiptTextStyle}"/>
+
+                    </DockPanel>
+                    <Line Stroke="Black" StrokeThickness="2" Margin="0,12,0,12" HorizontalAlignment="Stretch" X1="0" X2="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=StackPanel}}"></Line>
+
+                    <DockPanel HorizontalAlignment="Left" Width="214">
+                        <TextBlock Text= "Total" FontSize="12" FontWeight="Bold" Style="{StaticResource ReceiptTextStyle}"/>
+                        <TextBlock Text="{Binding Total}"  FontSize="16" FontWeight="Bold" HorizontalAlignment="Right" Style="{StaticResource ReceiptTextStyle}"/>
+                    </DockPanel>
+                    <!--This section added for split-->
+                    <ItemsControl Margin="0,4,0,4" ItemsSource="{Binding Splits}" Visibility="{Binding HasSplit,Converter={StaticResource BoolToVis}}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel Margin="0,2">
+                                    <StackPanel MaxWidth="150">
+                                        <TextBlock  Style="{StaticResource ReceiptTextStyle}">
+                                        <Run Text="{Binding Title,Mode=OneWay}" FontWeight="SemiBold"  FontSize="11"></Run>
+                                        <Run Text="{Binding Type,Mode=OneWay}" FontWeight="Normal"  FontSize="10" ></Run>
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Amount}" FontWeight="SemiBold" FontSize="11" HorizontalAlignment="Right" Style="{StaticResource ReceiptTextStyle}"/>
+                                </DockPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel></StackPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    <!--This above section added for split receipt-->
+
+                    <TextBlock FontSize="9" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,10" Style="{StaticResource ReceiptTextStyle}">
+                        <Run Text="Thank you for giving us the pleasure to serve you."></Run>
+                        <LineBreak></LineBreak>
+                        <Run Text="We hope you visit us again soon!"></Run>
+                        <LineBreak></LineBreak>
+                        <LineBreak></LineBreak>
+                        <Run Text="CUSTOMER COPY"></Run>
+                        <LineBreak></LineBreak>
+                        <LineBreak></LineBreak>
+                        <Run Text="DEVELOPED BY: AMERICLOUD SOLUTIONS, INC."></Run>
+                        <LineBreak></LineBreak>
+                    </TextBlock>
+                  
+                </StackPanel>
+            </StackPanel>
+        </Viewbox>
+
+    </DataTemplate>
+
+</ResourceDictionary>

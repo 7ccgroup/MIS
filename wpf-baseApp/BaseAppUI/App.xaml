@@ -1,0 +1,17 @@
+﻿<Application x:Class="BaseAppUI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             >
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="View/Images.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="View/Styles.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="View/Base/HeadView.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="View/Sections/Base.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="View/Notifies/NotifyView.xaml"></ResourceDictionary>
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,122 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:BaseAppUI.ViewModel.Notifies"
+                    >
+
+
+    <DataTemplate x:Key="AddTipModifierView" DataType="{x:Type vm:AddTipModifier}">
+
+
+        <Grid>
+
+            <Border Width="710" Height="864" Background="White" CornerRadius="16">
+                <Border.Effect>
+                    <DropShadowEffect></DropShadowEffect>
+                </Border.Effect>
+            </Border>
+
+            <Border Width="710" Height="864" Background="White" CornerRadius="16">
+
+                <Grid Margin="50,28,50,30">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="64"></RowDefinition>
+                        <RowDefinition Height="62"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+
+                    </Grid.RowDefinitions>
+
+                    <DockPanel>
+
+                        <TextBlock Text="Add Tip" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="34" Foreground="#757575"></TextBlock>
+
+                        <ItemsControl ItemsSource="{Binding DiscountConverters}" VerticalAlignment="Center" HorizontalAlignment="Right" >
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Width="64" Height="64" Content="{Binding Label}" Margin="0,0,40,0" 
+                                            Command="{Binding DataContext.SelectDiscountConverterCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ItemsControl}}" CommandParameter="{Binding}"
+                                            Style="{DynamicResource CircleSelectButtonStyle}"></Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"></StackPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+
+                    </DockPanel>
+
+
+                    <Grid Grid.Row="2" Width="370" HorizontalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="74"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+
+                        </Grid.RowDefinitions>
+
+
+                        <DockPanel Width="342" HorizontalAlignment="Stretch">
+
+                            <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#282A2D" FontSize="44" >
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1}">
+                                        <Binding Path="SelectedConverter.Label" />
+                                        <Binding Path="DiscountValue" />
+                                    </MultiBinding>
+
+                                </TextBlock.Text>
+
+                            </TextBlock>
+
+                            <Button Height="28" Width="28" Command="{Binding SelectKeybordButton}" CommandParameter="{Binding ResetDiscount}" VerticalAlignment="Center" HorizontalAlignment="Right" Style="{DynamicResource ResetButtonStyle}" />
+
+                        </DockPanel>
+
+
+
+
+
+                        <Line VerticalAlignment="Bottom" X1="0" X2="{Binding ActualWidth,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Grid}}}" Stroke="#D8D8D8" StrokeThickness="2"></Line>
+
+                        <ItemsControl Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top" ItemsSource="{Binding CalculatorButtons}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Width="94" Height="94" Margin="10"
+                                    
+                                    Command="{Binding DataContext.SelectKeybordButton,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ItemsControl}}" CommandParameter="{Binding}"
+                                    
+                                    VerticalAlignment="Center" HorizontalAlignment="Center" Content="{Binding Label}" Style="{DynamicResource CalculatorButtonStyle}"></Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel></WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                        </ItemsControl>
+
+
+                    </Grid>
+
+
+                    <DockPanel Grid.Row="3">
+                        <Button Command="{Binding DiscountCommand}" CommandParameter="{x:Static vm:DiscountActionType.Cancel}" Background="#F44336" HorizontalAlignment="Left" Content="CANCEL"  Width="180" Height="50" Style="{DynamicResource FlatButtonStyle}"></Button>
+                        <Button Command="{Binding DiscountCommand}" CommandParameter="{x:Static vm:DiscountActionType.Done}" Background="#4EB734" HorizontalAlignment="Right" Content="ADD TIP"  Width="180" Height="50" Style="{DynamicResource FlatButtonStyle}"></Button>
+                    </DockPanel>
+
+                </Grid>
+
+
+
+
+            </Border>
+
+
+        </Grid>
+    </DataTemplate>
+
+</ResourceDictionary>

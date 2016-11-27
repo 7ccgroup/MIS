@@ -1,0 +1,475 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:BaseAppUI.ViewModel.Sections"
+                    xmlns:common="clr-namespace:BaseAppUI.Common"
+                    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                    xmlns:se="http://schemas.microsoft.com/expression/2010/interactions"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"                    
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+                    xmlns:chart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"                    >
+
+    <Style x:Key="HeaderLabel" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Foreground" Value="#757575"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+
+    </Style>
+    <Style x:Key="OrderLineLabel" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="#212121"/>
+        <Setter Property="FontSize" Value="21"/>
+    </Style>
+
+    <DataTemplate x:Key="SettingsView" DataType="{x:Type vm:PosSettings}" >
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="506"/>
+                <ColumnDefinition Width="1200"/>
+                <ColumnDefinition Width="214"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Background="White">
+                <Grid Margin="37,22,47,32">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="51"/>
+                        <RowDefinition Height="94"/>
+                        <RowDefinition Height="22"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="1"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                    <Button Grid.Row="0" Width="130" Height="51" HorizontalAlignment="Left"
+                            Command="{Binding ReturnCommand}"
+                            Style="{DynamicResource BackButtonStyle}">
+                    </Button>
+                    
+                    <DockPanel Grid.Row="1"  Visibility="{Binding SettingApplicationVisible}" >
+                        <TextBlock VerticalAlignment="Center" FontWeight="Light" FontSize="32" Foreground="#292A2E">
+                            <!--<Run Text=""></Run>-->
+                            <Run Text="{Binding SelectMasterSetting.SettingGroupid, Mode=OneWay,TargetNullValue= - }"></Run>
+                        </TextBlock>
+                        <Button  Grid.Column="3" Background="#0CBF88" 
+                                 Command="{Binding SelectSettingEditCommand}" 
+                                 CommandParameter="{Binding SelectMasterSetting}" 
+                                 IsEnabled="{Binding RecordSelected,UpdateSourceTrigger=PropertyChanged}"
+                                 HorizontalAlignment="Right" VerticalAlignment="Center" Content="EDIT"  Width="150" Height="50" Style="{DynamicResource FlatButtonStyle}" >
+
+                        </Button>
+
+                        <!--  SelectItemEditCommand IsHitTestVisible="{Binding IsEditEnabled,FallbackValue=False}" 
+                                 Visibility="{Binding EditVisibility,FallbackValue=Collapsed}"this was commented by SAA 4/5 used to make the button visible-->
+
+                    </DockPanel>
+                  
+                    <Grid Grid.Row="3" Visibility="{Binding SettingApplicationVisible}" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="1"></ColumnDefinition>
+                            
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                           
+                            
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <!--    <TextBlock Grid.Row="0" Grid.Column="1" Text="DATE / TIME" Style="{DynamicResource CusDetailHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding SelectMasterItem101.Id,StringFormat={}{0:MMM dd\, yyyy HH:mm},TargetNullValue= - }" Style="{DynamicResource CusDetailLabel}"></TextBlock>
+-->
+
+                        <TextBlock Name="DisplayLabel01" Grid.Row="2" Grid.Column="1" Text="{Binding SelectMasterSetting.SettingDisplay01Label,UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Name="DisplayField01" Grid.Row="2" Grid.Column="2" Text="{Binding SelectMasterSetting.SettingDisplay01Value,UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource ItemDetailFieldValue}" ></TextBlock>
+                        <TextBlock Name="DisplayLabel02" Grid.Row="4" Grid.Column="1" Text="{Binding SelectMasterSetting.SettingDisplay02Label}" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Name="DisplayField02" Grid.Row="4" Grid.Column="2" Text="{Binding SelectMasterSetting.SettingDisplay02Value,TargetNullValue= - }" Style="{DynamicResource ItemDetailFieldValue}"></TextBlock>
+                        <TextBlock Name="DisplayLabel03" Grid.Row="6" Grid.Column="1" Text="{Binding SelectMasterSetting.SettingDisplay03Label}" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Name="DisplayField03" Grid.Row="6" Grid.Column="2" Text="{Binding SelectMasterSetting.SettingDisplay03Value,TargetNullValue= - }" Style="{DynamicResource ItemDetailFieldValue}"></TextBlock>
+                        <TextBlock Name="DisplayLabel04" Grid.Row="8" Grid.Column="1" Text="{Binding SelectMasterSetting.SettingDisplay04Label}" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Name="DisplayField04" Grid.Row="8" Grid.Column="2" Text="{Binding SelectMasterSetting.SettingDisplay04Value,TargetNullValue= - }" Style="{DynamicResource ItemDetailFieldValue}"></TextBlock>
+                        <TextBlock Name="DisplayLabel05" Grid.Row="10" Grid.Column="1" Text="{Binding SelectMasterSetting.SettingDisplay05Label}" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Name="DisplayField05" Grid.Row="10" Grid.Column="2" Text="{Binding SelectMasterSetting.SettingDisplay05Value,TargetNullValue= - }" Style="{DynamicResource ItemDetailFieldValue}"></TextBlock>
+                        <TextBlock Name="DisplayLabel06" Grid.Row="12" Grid.Column="1" Text="{Binding DisplayLabel06}" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Name="DisplayField06" Grid.Row="12" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectMasterItem.vItemVendor,TargetNullValue= - }" Style="{DynamicResource ItemDetailFieldValue}"></TextBlock>
+                        <TextBlock Name="DisplayLabel07" Grid.Row="14" Grid.Column="1" Text="{Binding DisplayLabel07}" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Name="DisplayField07" Grid.Row="14" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectMasterItem.vItemVendorPhone,TargetNullValue= - }" Style="{DynamicResource ItemDetailFieldValue}"></TextBlock>
+                        <TextBlock Name="DisplayLabel08" Grid.Row="16" Grid.Column="1" Text="{Binding DisplayLabel08}" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Name="DisplayField08" Grid.Row="16" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectMasterItem.vItemVendorContact,TargetNullValue= - }" Style="{DynamicResource ItemDetailFieldValue}"></TextBlock>
+                        <TextBlock Name="DisplayLabel09" Grid.Row="18" Grid.Column="1" Text="{Binding DisplayLabel09}" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Name="DisplayField09" Grid.Row="18" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectMasterItem.vItemStatus,TargetNullValue= - }" Style="{DynamicResource ItemDetailFieldValue}"></TextBlock>
+
+                        <TextBlock Name="DisplayLabel10" Grid.Row="26" Grid.Column="1" Text="{Binding DisplayLabel10}" Style="{DynamicResource ItemDetailLabel}"></TextBlock>
+                        <TextBlock Name="DisplayField10" Grid.Row="26" Grid.Column="2" Text="{Binding SelectMasterItem.vEntryBy,TargetNullValue= - }" Style="{DynamicResource ItemDetailFieldValue}"></TextBlock>
+
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" HorizontalAlignment="Right"  >
+                            <Image Source="{Binding CategoryIcon}"></Image>
+                        </StackPanel>
+
+                    </Grid>
+
+                </Grid>
+            </Border>
+            <Border Grid.Column="1">
+                <Grid Visibility="{Binding SettingSyncVisible}" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="110"/>
+                        <RowDefinition Height="225"/>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="24,0,24,0">
+
+
+                        <TextBlock Text="Sync" FontSize="44" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                        <Line VerticalAlignment="Bottom" X1="0" X2="{Binding ActualWidth,RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor}}" Stroke="#4C4D50" StrokeThickness="1" />
+                    </Grid>
+                    <Grid Grid.Row="2">
+
+                        <TextBox  Name="ItemSyncLog" Background="Transparent" Foreground="White" VerticalScrollBarVisibility="Auto" Text="{Binding LogDisplay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="600" Width="800" Margin="10,10,10,10" FontSize="16" IsReadOnly="True" BorderThickness="0" ></TextBox>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <Button Name="ItemSync" Content="Sync" Command="{Binding SyncItemsCommand}" Tag="{StaticResource Icon_bord_settings}" CommandParameter="{Binding ElementName=ItemSyncLog}" Style="{DynamicResource SettingViewButtonStyle}" Height="200" Width="200" HorizontalAlignment="Left" Margin="25,20,0,0"></Button>
+                            <!--<Button Name="ItemSyncShowLog" Content="Show Log" Command="{Binding SyncShowLogCommand}" Tag="{StaticResource Icon_bord_settings}" CommandParameter="{Binding ElementName=ItemSyncLog}" Style="{DynamicResource SettingViewButtonStyle}" Height="275" Width="275" HorizontalAlignment="Left" Margin="25,20,0,0"></Button>-->
+                        </StackPanel>
+                    </Grid>
+                    
+                   
+                    <!--<Grid Grid.Row="2">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="400"></ColumnDefinition>
+                            <ColumnDefinition Width="400"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0"  />
+                        <Border Grid.Column="1" />
+                    
+                    </Grid>
+                    <Grid Grid.Row="3">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="400"></ColumnDefinition>
+                            <ColumnDefinition Width="400"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0"  />
+                        <Border Grid.Column="1" />
+
+                    </Grid>
+                    <Grid Grid.Row="4">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="400"></ColumnDefinition>
+                            <ColumnDefinition Width="400"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0"  />
+                        <Border Grid.Column="1"  />
+
+                    </Grid>
+
+
+
+                    <Grid HorizontalAlignment="Stretch" Height="85" Margin="274.667,375.666,633,0" Grid.Row="1" VerticalAlignment="Top" Width="Auto">
+                        <Viewbox Stretch="Uniform"  Grid.Row="0"  VerticalAlignment="Bottom" HorizontalAlignment="Left" StretchDirection="Both" >
+                            <TextBlock x:Name="textBlockMTDSalesValue" HorizontalAlignment="Left" Grid.Row="0"  Text="{Binding MTDsales}" VerticalAlignment="Top" FontSize="64" Foreground="#FFF5E6E6" IsEnabled="False"/>
+
+                        </Viewbox>
+                    </Grid>
+                    <Grid HorizontalAlignment="Right"  Height="85" Margin="0,375.666,41,0" Grid.Row="1" VerticalAlignment="Top" Width="400">
+                        <Viewbox Stretch="Uniform"  Grid.Row="0"  VerticalAlignment="Bottom" HorizontalAlignment="Left" StretchDirection="Both" >
+
+                            <TextBlock x:Name="textBlockMonthlyAvgSalesValue" HorizontalAlignment="Right"  Grid.Row="1"  Text="{Binding YTDSales}" VerticalAlignment="Top" FontSize="64" Foreground="#FFF5E6E6" IsEnabled="False"/>
+                        </Viewbox>
+                    </Grid>-->
+                    <!-- <TextBlock Grid.Row="0" Text="{Binding SelectedReportType.Name,UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource CusDetailHeaderLabel}" /> -->
+                    <!-- <DataGrid Grid.Row="1" Height="615" Width="1500" ItemsSource="{Binding Report500101}"/> -->
+
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1">
+                <Grid  Visibility="{Binding SettingApplicationVisible}" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="250"/>
+                        <RowDefinition Height="250"/>
+                        <RowDefinition Height="250"/>
+                        <RowDefinition Height="250"/>
+                        <RowDefinition Height="75"/>
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Row="1" Grid.Column="1"
+                        Content="Name"
+                        Command="{Binding SettingsCommand}"
+                        CommandParameter="Name"
+                        Height="200" Width="200"
+                        Tag="{StaticResource Icon_bord_settings}"
+                        Style="{StaticResource SettingViewButtonStyle}"/>
+                    <Button Grid.Row="2" Grid.Column="1"
+                        Content="Database"
+                        Command="{Binding SettingsCommand}"
+                        CommandParameter="DatabaseLocation"
+                        Height="200" Width="200"
+                        Tag="{StaticResource Icon_bord_settings}"
+                        Style="{StaticResource SettingViewButtonStyle}"/>
+                    <Grid Grid.Row="1">
+                        
+                       
+                       
+                        <!--<FlowDocumentPageViewer Document="{Binding POSReportDocument}"  Grid.Row="1" Grid.Column="0" Height="800" Width="650" Background="Transparent"></FlowDocumentPageViewer>-->
+                        <!--<Calendar Grid.Row="1" Grid.Column="1" Style="{DynamicResource CustomCalendarStyle}" SelectedDate="{Binding ZreportDateSelection}"></Calendar>-->
+
+                    </Grid>
+
+                    <Button Grid.Row="1" Grid.Column="2"
+                        Content="Tax"
+                        Command="{Binding SettingsCommand}"
+                        CommandParameter="Tax"
+                        Height="200" Width="200"
+                        Tag="{StaticResource Icon_bord_settings}"
+                        Style="{StaticResource SettingViewButtonStyle}"/>
+                    <Button Grid.Row="2" Grid.Column="4"
+                        Content="Card Key"
+                        Command="{Binding SettingsCommand}"
+                        CommandParameter="CardKey"
+                        Height="200" Width="200"
+                        Tag="{StaticResource Icon_bord_settings}"
+                        Style="{StaticResource SettingViewButtonStyle}"/>
+                    <Button Grid.Row="1" Grid.Column="3"
+                        Content="Service Fee"
+                        Command="{Binding SettingsCommand}"
+                        CommandParameter="ServiceFee"
+                        Height="200" Width="200"
+                        Tag="{StaticResource Icon_bord_settings}"
+                        Style="{StaticResource SettingViewButtonStyle}"/>
+                    <Button Grid.Row="3" Grid.Column="1"
+                        Content="Workflow"
+                        Command="{Binding SettingsCommand}"
+                        CommandParameter="Workflow"
+                        Height="200" Width="200"
+                        Tag="{StaticResource Icon_bord_settings}"
+                        Style="{StaticResource SettingViewButtonStyle}"/>
+
+                    <Button Grid.Row="2" Grid.Column="3"
+                        Content="Dataflow"
+                        Command="{Binding SettingsCommand}"
+                        CommandParameter="Dataflow"
+                        Height="200" Width="200"
+                        Tag="{StaticResource Icon_bord_settings}"
+                        Style="{StaticResource SettingViewButtonStyle}"/>
+                    <Button Grid.Row="1" Grid.Column="4"
+                        Content="Add-ons"
+                        Height="200" Width="200"
+                        Command="{Binding SettingsCommand}"
+                        CommandParameter="Addon"
+                        Tag="{StaticResource Icon_bord_settings}"
+                        Style="{StaticResource SettingViewButtonStyle}"/>
+                    <Button Grid.Row="2" Grid.Column="2"
+                        Content="Printer"
+                        Height="200" Width="200"
+                        Command="{Binding SettingsCommand}"
+                        CommandParameter="Printer"
+                        Tag="{StaticResource Icon_bord_settings}"
+                        Style="{StaticResource SettingViewButtonStyle}"/>
+                     <Button Grid.Row="3" Grid.Column="2"
+                        Content="Optimize"
+                        Height="200" Width="200"
+                        Command="{Binding SettingsCommand}"
+                        CommandParameter="Optimize"
+                        Tag="{StaticResource Icon_bord_settings}"
+                        Style="{StaticResource SettingViewButtonStyle}"/>
+                     <Button Grid.Row="3" Grid.Column="3"
+                        Content=""
+                        Height="200" Width="200"
+                        Command="{Binding}"
+                        CommandParameter=""
+                        Tag="{StaticResource Icon_bord_settings}"
+                        Style="{StaticResource SettingViewButtonStyle}"/>
+                     <Button Grid.Row="3" Grid.Column="4"
+                        Content=""
+                        Height="200" Width="200"
+                        Command="{Binding}"
+                        CommandParameter=""
+                        Tag="{StaticResource Icon_bord_settings}"
+                        Style="{StaticResource SettingViewButtonStyle}"/>
+                     <Button Grid.Row="4" Grid.Column="1"
+                        Content=""
+                        Height="200" Width="200"
+                        Command="{Binding}"
+                        CommandParameter=""
+                        Tag="{StaticResource Icon_bord_settings}"
+                        Style="{StaticResource SettingViewButtonStyle}"/>
+                     <Button Grid.Row="4" Grid.Column="2"
+                        Content=""
+                        Height="200" Width="200"
+                        Command="{Binding}"
+                        CommandParameter=""
+                        Tag="{StaticResource Icon_bord_settings}"
+                        Style="{StaticResource SettingViewButtonStyle}"/>
+                     <Button Grid.Row="4" Grid.Column="3"
+                        Content=""
+                        Height="200" Width="200"
+                        Command="{Binding}"
+                        CommandParameter=""
+                        Tag="{StaticResource Icon_bord_settings}"
+                        Style="{StaticResource SettingViewButtonStyle}"/>
+                     <Button Grid.Row="4" Grid.Column="4"
+                        Content=""
+                        Height="200" Width="200"
+                        Command="{Binding}"
+                        CommandParameter=""
+                        Tag="{StaticResource Icon_bord_settings}"
+                        Style="{StaticResource SettingViewButtonStyle}"/>
+                    <Border Grid.Row="0"/>
+                    <!--<Button Style="{DynamicResource PrintButtonStyle}" Command="{Binding ReportCommand}"></Button>-->
+                    
+                </Grid>
+            </Border>
+            <Border Grid.Column="1"  d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Grid.RowSpan="3">
+                <Grid Visibility="{Binding SettingSystemVisible}" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="21"/>
+                        <RowDefinition Height="254"/>
+                        <RowDefinition Height="254"/>
+                        <RowDefinition Height="254"/>
+                        <RowDefinition Height="254"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0"/>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="350"></ColumnDefinition>
+                            <ColumnDefinition Width="350"></ColumnDefinition>
+                            <ColumnDefinition Width="350"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        
+                    </Grid>
+                </Grid>
+            </Border>
+            <Border Grid.Column="1"  d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Grid.RowSpan="3">
+                <Grid Visibility="{Binding SettingUserVisible}" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="21"/>
+                        <RowDefinition Height="254"/>
+                        <RowDefinition Height="254"/>
+                        <RowDefinition Height="254"/>
+                        <RowDefinition Height="254"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0"/>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="350"></ColumnDefinition>
+                            <ColumnDefinition Width="350"></ColumnDefinition>
+                            <ColumnDefinition Width="350"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+
+                    </Grid>
+                </Grid>
+            </Border>
+
+
+            <!--Commented      <Border Grid.Column="2" Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                    <RowDefinition Height="51"></RowDefinition>
+                    <RowDefinition Height="340"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="LightBlue"/>
+                    <TextBlock Grid.Row="0" FontFamily="FontArialRoundedMTStd" FontSize="20" Text="Reports" Foreground="Black"/>
+                </Grid>
+            </Border>
+
+-->
+     
+            <Border Grid.Column="2" Background="#1B1C1F" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Grid.RowSpan="3">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="110"/>
+                        <RowDefinition Height="926"/>
+                    </Grid.RowDefinitions>
+                    <!--<TextBlock Grid.Row="0" Tag="{StaticResource Icon_bord_reports}"  Text="Reports" FontWeight="Bold" FontSize="44" VerticalAlignment="Center"></TextBlock>-->
+                    <Button Grid.Row="0"
+                        Content="SETTINGS"
+                        Tag="{StaticResource Icon_bord_settings}"
+                        Style="{StaticResource ViewTitleButtonStyle}"/>
+                    <Grid Grid.Row="1" ScrollViewer.PanningMode="VerticalOnly" ScrollViewer.VerticalScrollBarVisibility="Hidden" >
+
+                        <ItemsControl x:Name="SettingsType" ItemsSource="{Binding SettingsCategory}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+
+                                    <Button Height="100" HorizontalAlignment="Stretch" Command="{Binding DataContext.SelectCategoryCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}" Content="{Binding Name}" Style="{DynamicResource CategoryButtonStyle}"/>
+
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+
+
+
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="ManipulationBoundaryFeedback">
+
+                                <se:CallMethodAction MethodName="ManipulationBoundaryFeedbackHandler" TargetObject="{Binding}"></se:CallMethodAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Grid>
+
+
+
+
+                </Grid>
+            </Border>
+
+
+
+
+        </Grid>
+
+
+    </DataTemplate>
+
+</ResourceDictionary>

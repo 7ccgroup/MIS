@@ -1,0 +1,484 @@
+﻿using PosUI.Configuration;
+using PosUI.Model;
+using PosUI.Model.Card;
+using PosUI.Sdk.Receipts;
+using PosUI.ViewModel;
+using PosUI.ViewModel.Sections;
+using PosUI.ViewModel.Sections.Partial;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Media;
+using System.Printing;
+
+namespace PosUI.ViewModel.Notifies
+{
+    public enum ThanksNotifyCommands
+    {
+        None,
+        Text,
+        Email,
+        Print
+
+    }
+    public class ThanksNotify : NotifyBase
+    {
+        OrderVM _order;
+        private string _text;
+        private string _email;
+        
+        //MainVM _register;
+       
+
+        public ThanksNotify(OrderVM order)
+        {
+            _order = order;
+            //Text = "7489510533";
+        }
+
+        //public ThanksNotify(MainVM register)
+        //{
+        //    _register = register;
+        //}
+
+        //private Register _register;
+        //public Register Register
+        //{
+        //    get { return _register ?? (_register = new Register(this)); }
+
+        //}
+
+        public string Text
+        {
+            get { return _text; }
+            set
+            {
+                _text = value;
+                OnPropertyChanged("TextDisplay");
+            }
+        }
+
+        public string TextDisplay
+        {
+            get
+            {
+                return FormatPhoneNumberDisplayText(_text);
+            }
+            set
+            {
+                Text = value.Replace("-", "");
+            }
+        }
+        private string FormatPhoneNumberDisplayText(string value)
+        {
+            if (string.IsNullOrEmpty(value)) return null;
+
+            StringBuilder sb = new StringBuilder();
+            var vals = value.ToCharArray();
+            for (int i = 0; i < vals.Length; i++)
+            {
+                if (i == 3 || i == 6 || i == 10)
+                    sb.Append("-");
+                sb.Append(vals[i]);
+            }
+
+
+            return sb.ToString();
+        }
+
+
+        public string Email
+        {
+            get { return _email; }
+            set { _email = value; }
+        }
+
+        private DelegateCommand<ThanksNotifyCommands> _thanksCommand;
+        public DelegateCommand<ThanksNotifyCommands> ThanksCommand
+        {
+            get
+            {
+                return _thanksCommand ?? (_thanksCommand = new DelegateCommand<ThanksNotifyCommands>((e) =>
+                {
+
+                    switch (e)
+                    {
+                        case ThanksNotifyCommands.None:
+                            if (_order.OrderStatus == OrderStatuses.Pending)
+                                PendingSaveOrder();
+                            else
+                                SaveOrder();
+                            this.CloseCommand.Execute(null);
+                            break;
+                        case ThanksNotifyCommands.Text:
+                            break;
+                        case ThanksNotifyCommands.Email:
+                            break;
+                        case ThanksNotifyCommands.Print:
+<<<<<<< HEAD
+                            ReceiptPrinter.Print(_order);
+                            SaveOrder();
+=======
+                            if (_order.PaymentType==OrderPaymentTypes.Card)
+                                PrintMerchantReceipt(); // Added by Amjad 4/26
+                            PrintCustomerReceipt();
+                            if(_order.OrderStatus == OrderStatuses.Pending)
+                                PendingSaveOrder();
+                            else
+                                SaveOrder();
+                           
+>>>>>>> 3f1c7cd4305805c04836e6e9df67f2a6784530f3
+                            this.CloseCommand.Execute(null);
+                            break;
+                    }
+
+                }));
+            }
+        }
+
+        // Save Order Function, 
+        // Modified from MainVM's Save Order Command
+        private void PendingSaveOrder()
+        {
+            if (_order.OrderLines.Count > 0)
+            {
+
+                try
+                {
+                    var _orderHeader = _order._orderHeader;
+
+                    //lines
+                    var lines = _order.OrderLines.Select(n => n._line).ToList();
+                    _orderHeader.POS_OrderDetails = lines;
+                    _orderHeader.vOrderStatus = OrderStatuses.Completed;
+                    _orderHeader.dOrderAmount = _order.AllTotal;
+                    _orderHeader.dOrderTax = _order.TaxSubtotal;
+                    //if (_orderHeader.vOrderPaymentType == OrderPaymentTypes.Card)
+                    //{
+                    //    _orderHeader.vOrderPaymentRef = PosUI.ViewModel.Payments.CardPayVM.
+                    //}
+                //    _orderHeader.vOrderPaymentType = OrderPaymentTypes.Card; 
+                    
+                    //order number
+                  //  _orderHeader.vOrderNumber = GConfig.GenerateLocalOrderNumber();
+
+                    //time
+                    var processdate = DateTime.Now;
+                    _orderHeader.dModifiedDate = processdate;
+                    _orderHeader.dCreatedDate = processdate;
+
+                    foreach (var n in _orderHeader.POS_OrderDetails)
+                    {
+                        n.dModifiedDate = processdate;
+                        n.dCreatedDate = processdate;
+                    }
+
+                    //customer
+                    var custo = GConfig.POS_Setup.Customers.FirstOrDefault((n) => n.vCustContactNme == "Guest Customer");
+                    _orderHeader.CustomerId = custo.Id;
+                    _orderHeader.POS_SetupId = GConfig.POS_Setup.Id;
+
+                 //   GConfig.POS_Setup.OrderHeaders.Add(_orderHeader);
+                    GConfig.DAL.SaveChanges();
+
+                 //   MainVM.Main.Orders.Orders.Insert(0, _order);
+
+                    MainVM.Main.Register.Order = null;
+                    MainVM.Main.Register.RemoveSelection();
+
+                }
+                catch (Exception ex)
+                {
+                    new Notifies.TransactionFailedNotify("100", ex.Message.ToString()).Show();
+                }
+
+            }
+        }
+
+        private void SaveOrder()
+        {
+<<<<<<< HEAD
+                MainVM.Main.SaveOrderCommand.Execute(_order);
+   
+          
+=======
+            if (_order.OrderLines.Count > 0)
+            {
+
+                try
+                {
+                    var _orderHeader = _order._orderHeader;
+
+                    //lines
+                    var lines = _order.OrderLines.Select(n => n._line).ToList();
+                    _orderHeader.POS_OrderDetails = lines;
+                    _orderHeader.vOrderStatus = OrderStatuses.Completed;
+                    _orderHeader.dOrderAmount = _order.AllTotal;
+                    _orderHeader.dOrderTax = _order.TaxSubtotal;
+          //          _orderHeader.vOrderPaymentType = OrderPaymentTypes.Card;
+
+                    //order number
+                    _orderHeader.vOrderNumber = GConfig.GenerateLocalOrderNumber();
+
+                    //time
+                    var processdate = DateTime.Now;
+                    _orderHeader.dModifiedDate = processdate;
+                    _orderHeader.dCreatedDate = processdate;
+
+                    foreach (var n in _orderHeader.POS_OrderDetails)
+                    {
+                        n.dModifiedDate = processdate;
+                        n.dCreatedDate = processdate;
+                    }
+
+                    //customer
+                    var custo = GConfig.POS_Setup.Customers.FirstOrDefault((n) => n.vCustContactNme == "Guest Customer");
+                    _orderHeader.CustomerId = custo.Id;
+                    _orderHeader.POS_SetupId = GConfig.POS_Setup.Id;
+
+                    GConfig.POS_Setup.OrderHeaders.Add(_orderHeader);
+                    GConfig.DAL.SaveChanges();
+
+                    MainVM.Main.Orders.Orders.Insert(0, _order);
+>>>>>>> 3f1c7cd4305805c04836e6e9df67f2a6784530f3
+
+        }
+
+            /// <summary>
+            /// Print using FlowDoc method - Added by Amjad 4/26
+            /// </summary>
+
+        private void PrintMerchantReceipt()
+        {
+            PrintDialog printDlg = new PrintDialog();
+            printDlg.PrintQueue = new PrintQueue(new PrintServer(), PosUI.Properties.Settings.Default.POSMainPrinter);
+
+            // Create a FlowDocument dynamically.
+            FlowDocument doc = CreateMerchantFlowDocument(_order);
+            doc.Name = "Receipt";
+
+            // Create IDocumentPaginatorSource from FlowDocument
+            IDocumentPaginatorSource idpSource = doc;
+
+            // Call PrintDocument method to send document to printer
+            printDlg.PrintDocument(idpSource.DocumentPaginator, "Order Receipt");
+        }
+
+        private FlowDocument CreateMerchantFlowDocument(OrderVM PrintOrder)
+        {
+            //Receipt Header
+            // Create a FlowDocument
+            FlowDocument doc = new FlowDocument();
+
+            // Create a Section
+            Section sec = new Section();
+
+            // Formatting
+            Bold bld = new Bold();
+            Italic itl = new Italic();
+            Underline uline = new Underline();
+            doc.FontFamily = new FontFamily("Arial Rounded MT Std");
+
+
+
+            Paragraph header = new Paragraph(new Run("\n" + GConfig.POS_Setup.vCorpName));
+            header.FontSize = 24;
+            header.TextAlignment = TextAlignment.Left;
+            header.Inlines.Add(bld);
+            doc.Blocks.Add(header);
+
+
+            Int16 ReceiptOrderLineCount, i;
+            string ReceiptOrderLines = PosUI.Properties.Settings.Default.RestaurantAddress1 +
+                "\n" + PosUI.Properties.Settings.Default.RestaurantAddress2 +
+                "\n" + PosUI.Properties.Settings.Default.RestaurantTel + "\n\n" +
+                "Order #" + PrintOrder.OrderNumber + " -- " + PrintOrder.OrderType + " \n\n" + 
+                DateTime.Now.ToString("ddd MMM dd, yyyy  hh:mm tt") + "\n\n";
+            //string ReceiptOrderLines = PrintOrder._orderHeader.dModifiedDate.ToString("MMM dd, yyyy hh:mm") + "\n\n";
+            ReceiptOrderLineCount = (Int16)PrintOrder.OrderLines.Count();
+
+            for (i = 0; i < ReceiptOrderLineCount; i++)
+            {
+                ReceiptOrderLines += PrintOrder.OrderLines[i].Quantity;
+                ReceiptOrderLines += "    ";
+                ReceiptOrderLines += PrintOrder.OrderLines[i].ItemName;
+                ReceiptOrderLines += "    ";
+                ReceiptOrderLines += PrintOrder.OrderLines[i].Total;
+                ReceiptOrderLines += "\n\n";
+                
+                //ReceiptOrderLines += PrintOrder.OrderLines[i].Price;
+                //ReceiptOrderLines += "\n";
+                //ReceiptOrderLines += "\n";
+            }
+
+            string ReceiptSubTotal, ReceiptTaxTotal, ReceiptTotalAmount;
+            ReceiptSubTotal = "Subtotal:\t" + PrintOrder.Subtotal.ToString("#,#.00") + "\n";
+            ReceiptTaxTotal = "Tax:\t\t" + PrintOrder.TaxSubtotal.ToString("##.00") + "\n";
+            ReceiptTotalAmount = "Total:\t\t" + PrintOrder.AllTotal.ToString("#,#.00") + "\n";
+
+            if (_order.PaymentType == OrderPaymentTypes.Card)
+            {
+                ReceiptTotalAmount = "Total:\t" + PrintOrder.AllTotal.ToString("#,#.00") + "\n" +
+                    "\n Appr Code: " + GConfig.response2.Resp_ApprovalCode + "\n" +
+                    "Credit Card \t" + GConfig.response2.Resp_CardNum + "\n " +
+                    GConfig.response2.Resp_Msg.ToUpper() + " \n";
+            }
+
+            string ReceiptSignatureLine, ReceiptSignatureWriteup;
+            ReceiptSignatureLine = "\n\n\n\nX___________________________________\n";
+            ReceiptSignatureWriteup = "I agree to pay the above\n total amount according to \n my card issuer agreement.\n";
+
+            Paragraph orderLines = new Paragraph(new Run(ReceiptOrderLines 
+                + ReceiptSubTotal + ReceiptTaxTotal + ReceiptTotalAmount
+                + ReceiptSignatureLine +  ReceiptSignatureWriteup + "\n\n\n\n Merchant Copy"));
+            orderLines.FontSize = 13;
+            orderLines.TextAlignment = TextAlignment.Left;
+            orderLines.Inlines.Add(bld);
+            doc.Blocks.Add(orderLines);
+  
+            return doc;
+        }
+
+        private void PrintCustomerReceipt()
+        {
+            PrintDialog printDlg = new PrintDialog();
+            printDlg.PrintQueue = new PrintQueue(new PrintServer(), 
+                PosUI.Properties.Settings.Default.POSMainPrinter);
+
+            // Create a FlowDocument dynamically.
+            FlowDocument doc = CreateCustomerFlowDocument(_order);
+            doc.Name = "Receipt";
+
+            // Create IDocumentPaginatorSource from FlowDocument
+            IDocumentPaginatorSource idpSource = doc;
+
+            // Call PrintDocument method to send document to printer
+            printDlg.PrintDocument(idpSource.DocumentPaginator, "Order Receipt");
+        }
+
+        private FlowDocument CreateCustomerFlowDocument(OrderVM PrintOrder)
+        {
+            //Receipt Header
+            // Create a FlowDocument
+            FlowDocument doc = new FlowDocument();
+
+            // Create a Section
+            Section sec = new Section();
+
+            // Formatting
+            Bold bld = new Bold();
+            Italic itl = new Italic();
+            Underline uline = new Underline();
+            doc.FontFamily = new FontFamily("Arial Rounded MT Std");
+
+
+
+            Paragraph header = new Paragraph(new Run("\n" + GConfig.POS_Setup.vCorpName));
+            header.FontSize = 24;
+            header.TextAlignment = TextAlignment.Left;
+            header.Inlines.Add(bld);
+            doc.Blocks.Add(header);
+
+
+            Int16 ReceiptOrderLineCount, i;
+            string ReceiptOrderLines = PosUI.Properties.Settings.Default.RestaurantAddress1 +
+                "\n" + PosUI.Properties.Settings.Default.RestaurantAddress2 +
+                "\n" + PosUI.Properties.Settings.Default.RestaurantTel + "\n\n" +
+                "Order #" + PrintOrder.OrderNumber + " -- " + PrintOrder.OrderType + " \n\n" +
+                DateTime.Now.ToString("ddd MMM dd, yyyy  hh:mm tt") + "\n\n";
+            //string ReceiptOrderLines = PrintOrder._orderHeader.dModifiedDate.ToString("MMM dd, yyyy hh:mm") + "\n\n";
+
+            ReceiptOrderLineCount = (Int16)PrintOrder.OrderLines.Count();
+
+            for (i = 0; i < ReceiptOrderLineCount; i++)
+            {
+                ReceiptOrderLines += PrintOrder.OrderLines[i].Quantity;
+                ReceiptOrderLines += "    ";
+                ReceiptOrderLines += PrintOrder.OrderLines[i].ItemName;
+                ReceiptOrderLines += "    ";
+                ReceiptOrderLines += PrintOrder.OrderLines[i].Total;
+                ReceiptOrderLines += "\n\n";
+
+                //ReceiptOrderLines += PrintOrder.OrderLines[i].Price;
+                //ReceiptOrderLines += "\n";
+                //ReceiptOrderLines += "\n";
+            }
+
+            string ReceiptSubTotal, ReceiptTaxTotal, ReceiptTotalAmount;
+            ReceiptSubTotal = "Subtotal:\t" + PrintOrder.Subtotal.ToString("#,#.00") + "\n";
+            ReceiptTaxTotal = "Tax:\t" + PrintOrder.TaxSubtotal.ToString("#.00") + "\n";
+            ReceiptTotalAmount = "Total:\t" + PrintOrder.AllTotal.ToString("#,#.00");
+            if (_order.PaymentType == OrderPaymentTypes.Card)
+            {
+                ReceiptTotalAmount = "Total:\t" + PrintOrder.AllTotal.ToString("#,#.00") + "\n" +
+                    "\n Appr Code: " + GConfig.response2.Resp_ApprovalCode + "\n" +
+                    "Credit Card \t" + GConfig.response2.Resp_CardNum + "\n " +
+                    GConfig.response2.Resp_Msg.ToUpper() + " \n";
+            }
+            string ReceiptSignatureLine = "\n ", ReceiptSignatureWriteup = " ";
+            //ReceiptSignatureLine = "\n\n\n\n___________________________________\n";
+            //ReceiptSignatureWriteup = "I agree to pay the above\n total amount according to \n my card issuer agreement.\n";
+
+            Paragraph orderLines = new Paragraph(new Run(ReceiptOrderLines
+                + ReceiptSubTotal + ReceiptTaxTotal + ReceiptTotalAmount
+                + ReceiptSignatureLine + ReceiptSignatureWriteup + "\n\n\n THANK YOU \n\n Customer Copy"));
+
+            orderLines.FontSize = 13;
+            orderLines.TextAlignment = TextAlignment.Left;
+            orderLines.Inlines.Add(bld);
+            doc.Blocks.Add(orderLines);
+
+
+
+            /*
+            string ReceiptHeader, ReceiptHeaderCompName, ReceiptHeaderCompAddrLn1, ReceiptHeaderCompAddrLn2, ReceiptHeaderPhone;
+            ReceiptHeaderCompName = GConfig.POS_Setup.vCorpName;
+            ReceiptHeaderCompAddrLn1 = GConfig.POS_Setup.vCorpAddress1 + "      " + System.DateTime.Today.ToString("MMM dd,yyyy");
+            ReceiptHeaderCompAddrLn2 = GConfig.POS_Setup.vCorpAddress2 + "     " + System.DateTime.Today.ToString("HH:MM");
+            ReceiptHeaderPhone = GConfig.POS_Setup.vCorpPhone + "   " + GConfig.POSuser;
+            ReceiptHeader = ReceiptHeaderCompName + ReceiptHeaderCompAddrLn1 + ReceiptHeaderCompAddrLn2 + ReceiptHeaderPhone;
+            //Receipt Payment Details
+            string ReceiptPayment, ReceiptPaymentCardNum, ReceiptPaymentAuthorizationNum;
+            int ReceiptPaymentOrderNum = PrintOrder.OrderNumber;
+            ReceiptPaymentCardNum = PrintOrder.PaidVia;
+            ReceiptPaymentAuthorizationNum = PrintOrder.PaymentAuthorization;
+            ReceiptPayment = ReceiptPaymentOrderNum + ReceiptPaymentCardNum + ReceiptPaymentAuthorizationNum;
+            //Receipt Line Items.
+            Int16 ReceiptOrderLineCount, i;
+            string ReceiptOrderLines = "", ReceiptSubTotal, ReceiptTaxTotal, ReceiptTotalAmount;
+
+            ReceiptOrderLineCount = (Int16)PrintOrder.OrderLines.Count();
+
+            for (i = 0; i < ReceiptOrderLineCount; i++)
+            {
+                ReceiptOrderLines += PrintOrder.OrderLines[i].ItemName;
+                ReceiptOrderLines += PrintOrder.OrderLines[i].Quantity;
+                ReceiptOrderLines += PrintOrder.OrderLines[i].Price;
+                ReceiptOrderLines += PrintOrder.OrderLines[i].Total;
+                ReceiptOrderLines += "\n";
+            }
+
+            ReceiptSubTotal = PrintOrder.Subtotal.ToString();
+            ReceiptTaxTotal = PrintOrder.TaxSubtotal.ToString();
+            ReceiptTotalAmount = PrintOrder.AllTotal.ToString();
+
+            string ReceiptSignatureLine, ReceiptSignatureWriteup;
+
+            ReceiptSignatureLine = "X___________________________________";
+            ReceiptSignatureWriteup = "I agree to pay the above total amount";
+            ReceiptSignatureWriteup += "according to my card issuer agreement.";
+
+            string ReceiptString;
+            ReceiptString = ReceiptHeader + ReceiptPayment + ReceiptOrderLines + ReceiptSubTotal + ReceiptTaxTotal + ReceiptTotalAmount + ReceiptSignatureLine + ReceiptSignatureWriteup;
+            //MessageBox.Show(ReceiptString, "Receipt");
+            //return ReceiptString;
+            */
+            return doc;
+        }
+    }
+}

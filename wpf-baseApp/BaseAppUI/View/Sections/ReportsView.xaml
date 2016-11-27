@@ -1,0 +1,58 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:BaseAppUI.ViewModel.Sections"
+                    xmlns:common="clr-namespace:BaseAppUI.Common"
+                    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                    xmlns:se="http://schemas.microsoft.com/expression/2010/interactions"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                    mc:Ignorable="d"
+                   
+                    >
+
+    <Style x:Key="HeaderLabel" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Foreground" Value="#757575"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+
+    </Style>
+    <Style x:Key="OrderLineLabel" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="#212121"/>
+        <Setter Property="FontSize" Value="21"/>
+    </Style>
+
+    <DataTemplate x:Key="ReportsMainView" DataType="{x:Type vm:ReportsMain}">
+
+        <Grid Background="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="345*"/>
+                <RowDefinition Height="564*"/>
+                <RowDefinition Height="127*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="269"/>
+                <ColumnDefinition Width="1437"/>
+                <ColumnDefinition Width="214"/>
+            </Grid.ColumnDefinitions>
+         <Border Grid.Column="1" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Grid.RowSpan="3">
+                <Grid Margin="129.333,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="21"/>
+                        <RowDefinition Height="1015"/>
+                    </Grid.RowDefinitions>
+                    <FlowDocumentScrollViewer Grid.Row="1" Background="LightGreen" x:Name="TestViewer" Document="{Binding POSreportType}">
+                        
+                    </FlowDocumentScrollViewer>
+                    
+                </Grid>
+            </Border>
+       
+
+
+        </Grid>
+
+
+    </DataTemplate>
+
+</ResourceDictionary>

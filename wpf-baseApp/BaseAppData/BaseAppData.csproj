@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F997F8B3-027E-4E39-909F-2B2381904660}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BaseAppData</RootNamespace>
+    <AssemblyName>BaseAppData</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServerCompact, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.SqlServerCompact.6.1.3\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Absract\IDALUnitOfWork.cs" />
+    <Compile Include="Absract\IRepository.cs" />
+    <Compile Include="Absract\IUnitOfWork.cs" />
+    <Compile Include="Concrete\DALUnitOfWork.cs" />
+    <Compile Include="Concrete\DecimalPrecisionAttribute.cs" />
+    <Compile Include="Concrete\EFDbContext.cs" />
+    <Compile Include="Concrete\Repository.cs" />
+    <Compile Include="Entity\POS_CodesTable.cs" />
+    <Compile Include="Entity\POS_Customer.cs" />
+    <Compile Include="Entity\POS_ItemCategory.cs" />
+    <Compile Include="Entity\POS_ItemMaster.cs" />
+    <Compile Include="Entity\POS_OrderDetails.cs" />
+    <Compile Include="Entity\POS_OrderHeader.cs" />
+    <Compile Include="Entity\POS_Setup.cs" />
+    <Compile Include="Entity\POS_TimeSheet.cs" />
+    <Compile Include="Entity\POS_User.cs" />
+    <Compile Include="Migrations\201605012336052_m1.cs" />
+    <Compile Include="Migrations\201605012336052_m1.Designer.cs">
+      <DependentUpon>201605012336052_m1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605050845343_m11.cs" />
+    <Compile Include="Migrations\201605050845343_m11.Designer.cs">
+      <DependentUpon>201605050845343_m11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605101919571_m12.cs" />
+    <Compile Include="Migrations\201605101919571_m12.Designer.cs">
+      <DependentUpon>201605101919571_m12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605230843279_m13.cs" />
+    <Compile Include="Migrations\201605230843279_m13.Designer.cs">
+      <DependentUpon>201605230843279_m13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605251102026_m14.cs" />
+    <Compile Include="Migrations\201605251102026_m14.Designer.cs">
+      <DependentUpon>201605251102026_m14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606050741231_m15.cs" />
+    <Compile Include="Migrations\201606050741231_m15.Designer.cs">
+      <DependentUpon>201606050741231_m15.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606071027091_m16.cs" />
+    <Compile Include="Migrations\201606071027091_m16.Designer.cs">
+      <DependentUpon>201606071027091_m16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201605012336052_m1.resx">
+      <DependentUpon>201605012336052_m1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605050845343_m11.resx">
+      <DependentUpon>201605050845343_m11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605101919571_m12.resx">
+      <DependentUpon>201605101919571_m12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605230843279_m13.resx">
+      <DependentUpon>201605230843279_m13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605251102026_m14.resx">
+      <DependentUpon>201605251102026_m14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606050741231_m15.resx">
+      <DependentUpon>201606050741231_m15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606071027091_m16.resx">
+      <DependentUpon>201606071027091_m16.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
+    if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:BaseAppUI.ViewModel"
+                    xmlns:controls="clr-namespace:BaseAppUI.Controls"
+                    >
+    <DataTemplate x:Key="HeadView" DataType="{x:Type vm:Head}">
+
+        <DockPanel Background="#202124" LastChildFill="True">
+
+            
+                <TextBlock Text="{Binding CompanyName}" FontSize="18" VerticalAlignment="Center" FontWeight="Light" Margin="26,0,0,0">
+
+                </TextBlock>
+            
+
+            <Grid HorizontalAlignment="Right" Margin="0,0,18,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="207"></ColumnDefinition>
+                    <ColumnDefinition Width="22"></ColumnDefinition>
+                    <ColumnDefinition Width="14"></ColumnDefinition>
+                    <ColumnDefinition Width="107"></ColumnDefinition>
+                    <ColumnDefinition Width="22"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding UserAccess,UpdateSourceTrigger=PropertyChanged}" Background="Transparent" FontSize="18" ></TextBlock>
+                
+                <ToggleButton Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="22" Width="22" IsChecked="{Binding IsSync,Mode=OneWay}" Style="{DynamicResource UpdateStateStyle}"></ToggleButton>
+                
+                    <controls:OnlineStateViewer Grid.Column="3"  Height="27"></controls:OnlineStateViewer>
+
+                    <controls:DateTimeViewer  Grid.Column="5" VerticalAlignment="Center"></controls:DateTimeViewer>
+              </Grid>
+           
+
+        </DockPanel>
+     
+        
+        
+    </DataTemplate>
+    
+</ResourceDictionary>

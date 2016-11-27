@@ -1,0 +1,54 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <BitmapImage x:Key="Icon_updater" UriSource="../Resources/updater.png" />
+    <BitmapImage x:Key="Icon_logo" UriSource="../Resources/logo.png" />
+    <BitmapImage x:Key="Icon_shutdown" UriSource="../Resources/shutdown.png" />
+    <BitmapImage x:Key="Icon_search" UriSource="../Resources/search.png" />
+
+
+
+    <!--  bord  -->
+    <BitmapImage x:Key="Icon_bord_customers" UriSource="../Resources/bord_customers.png" />
+    <BitmapImage x:Key="Icon_bord_inventory" UriSource="../Resources/bord_inventory.png" />
+    <BitmapImage x:Key="Icon_bord_orders" UriSource="../Resources/bord_orders.png" />
+    <BitmapImage x:Key="Icon_bord_register" UriSource="../Resources/bord_register.png" />
+    <BitmapImage x:Key="Icon_bord_reports" UriSource="../Resources/bord_reports.png" />
+    <BitmapImage x:Key="Icon_bord_settings" UriSource="../Resources/bord_settings.png" />
+
+    <BitmapImage x:Key="Icon_left_btn" UriSource="../Resources/left_btn.png" />
+    <BitmapImage x:Key="Icon_close_notify" UriSource="../Resources/close_notify.png" />
+    <BitmapImage x:Key="Icon_order_complete" UriSource="../Resources/complete.png" />
+    <BitmapImage x:Key="Icon_order_failed" UriSource="../Resources/failed.png" />
+    <BitmapImage x:Key="Icon_authorizing" UriSource="../Resources/authorizing.png" />
+    <BitmapImage x:Key="Icon_order_complete_small" UriSource="../Resources/complete_small.png" />
+
+    <BitmapImage x:Key="Icon_orderline_addition" UriSource="../Resources/addition.png" />
+    <BitmapImage x:Key="Icon_orderline_subtract" UriSource="../Resources/subtract.png" />
+
+
+    <!--  order types  -->
+    <BitmapImage x:Key="icon_ordertype_all" UriSource="../Resources/icon_ordertype_all.png" />
+    <BitmapImage x:Key="icon_catery" UriSource="../Resources/icon_catery.png" />
+    <BitmapImage x:Key="icon_delivery" UriSource="../Resources/icon_delivery.png" />
+    <BitmapImage x:Key="icon_dine_in" UriSource="../Resources/icon_dine_in.png" />
+    <BitmapImage x:Key="icon_online" UriSource="../Resources/icon_online.png" />
+    <BitmapImage x:Key="icon_to_go" UriSource="../Resources/icon_to_go.png" />
+
+
+    <!--  payments  -->
+    <BitmapImage x:Key="icon_swipe" UriSource="../Resources/swipe.png" />
+    <BitmapImage x:Key="icon_cancel_min" UriSource="../Resources/cancel_min.png" />
+
+    <BitmapImage x:Key="icon_phone" UriSource="../Resources/phone.png" />
+    <BitmapImage x:Key="icon_plane" UriSource="../Resources/plane.png" />
+
+
+    <!--  header  -->
+    <BitmapImage x:Key="icon_connected" UriSource="../Resources/connected.png" />
+    <BitmapImage x:Key="icon_offline" UriSource="../Resources/offline.png" />
+
+
+
+
+</ResourceDictionary>

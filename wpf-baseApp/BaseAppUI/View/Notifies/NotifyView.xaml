@@ -1,0 +1,176 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sec="clr-namespace:BaseAppUI.View.Notifies"
+                    xmlns:vm="clr-namespace:BaseAppUI.ViewModel.Notifies"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+                    >
+    <ResourceDictionary.MergedDictionaries>
+
+        <ResourceDictionary Source="AuthorizingNotifyView.xaml"/>
+        <ResourceDictionary Source="TransactionFailedNotifyView.xaml"/>
+        <ResourceDictionary Source="TransactionSuccesNotifyView.xaml"/>
+        <ResourceDictionary Source="PaymentCompletedNotifyView.xaml"/>
+        <ResourceDictionary Source="LineItemModifier.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="OrderTypeModifier.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="CustomItemModifier.xaml"></ResourceDictionary>
+
+        <ResourceDictionary Source="LineItemModifier.xaml"/>
+        <ResourceDictionary Source="OrderTypeModifier.xaml"/>
+        <ResourceDictionary Source="TipSignModifierNotifyView.xaml"/>
+        <ResourceDictionary Source="ThanksNotifyView.xaml"></ResourceDictionary>
+        
+        <ResourceDictionary Source="ItemEditView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="CustomerEditView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="SettingEditView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="DiscountModifier.xaml"></ResourceDictionary>
+
+        <ResourceDictionary Source="AddTipModifier.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="RestTableModifier.xaml"></ResourceDictionary>
+
+
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="Title1" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="45"/>
+        <Setter Property="Foreground" Value="#292A2E"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+
+    </Style>
+    <Style x:Key="Title2" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="28"/>
+        <Setter Property="Foreground" Value="#757575"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Light"/>
+
+    </Style>
+    <Style x:Key="Title3" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="28"/>
+        <Setter Property="FontSize" Value="45"/>
+        <Setter Property="Foreground" Value="#292A2E"/>
+        <Setter Property="FontWeight" Value="Light"/>
+
+    </Style>
+
+
+
+
+
+
+
+    <sec:NotifyViewSelector x:Key="NotifyViewSelector" 
+                             PaymentCompletedNotifyView="{StaticResource PaymentCompletedNotifyView}"
+                            TransactionFailedNotifyView="{StaticResource TransactionFailedNotifyView}"
+                            TransactionSuccessNotifyView="{StaticResource TransactionSuccessNotifyView}"
+                            LineItemModifierView="{StaticResource LineItemModifierView}"
+                            AuthorizingNotifyView="{StaticResource AuthorizingNotifyView}"
+                            OrderTypeModifierView="{StaticResource OrderTypeModifierView}"
+                            CustomItemModifierView="{StaticResource CustomItemModifierView}"
+                            TipSignModifierView="{StaticResource TipSignModifierView}"
+                            ThanksNotifyView="{StaticResource ThanksNotifyView}"
+                                 ItemEditView="{StaticResource ItemEditView}"
+                            CustomerEditView="{StaticResource CustomerEditView}"
+                              SettingEditView="{StaticResource SettingEditView}" 
+                            DiscountModifierView="{StaticResource DiscountModifierView}"
+                            AddTipModifierView="{StaticResource AddTipModifierView}"
+                             RestTableModifierView="{StaticResource RestTableModifierView}"
+                            />
+
+    
+    <DataTemplate x:Key="NotifyView">
+
+        <Grid>
+            <Border x:Name="m" Background="Black" Opacity="0"></Border>
+            <ContentControl x:Name="c" Content="{Binding}" 
+                            ContentTemplateSelector="{DynamicResource NotifyViewSelector}" 
+                            >
+                <ContentControl.RenderTransform>
+                    <TranslateTransform x:Name="er" Y="1080"></TranslateTransform>
+                </ContentControl.RenderTransform>
+            </ContentControl>
+        </Grid>
+
+
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding EnableMask}" Value="True">
+                <Setter TargetName="c" Property="Margin" Value="0,0,0,50"></Setter>
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="m" 
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="0" To=".5" Duration="0:0:.1"
+                                                         ></DoubleAnimation>
+          
+            </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+                <DataTrigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="m" 
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:.1"
+                                                         ></DoubleAnimation>
+
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.ExitActions>
+            </DataTrigger>
+
+
+
+            <DataTrigger Binding="{Binding Closing}" Value="False">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+
+                            <DoubleAnimation Storyboard.TargetName="er" 
+                                                         Storyboard.TargetProperty="Y"
+                                                        From="1080" To="0"
+                                                         Duration="0:0:.3"
+                                                         >
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase></SineEase>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+                <DataTrigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+
+
+                            <DoubleAnimation Storyboard.TargetName="er" 
+                                                         Storyboard.TargetProperty="Y"
+                                                         To="1080"
+                                                         Duration="0:0:.3"
+                                                         >
+
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase></SineEase>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+
+                           
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.ExitActions>
+            </DataTrigger>
+
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <DataTemplate x:Key="NotifyBase">
+        <ContentControl x:Name="lt" Content="{Binding}"/>
+
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding IsOpen}" Value="True">
+                <Setter TargetName="lt" Property="ContentTemplate" Value="{DynamicResource NotifyView}"/>
+            </DataTrigger>
+
+        </DataTemplate.Triggers>
+
+    </DataTemplate>
+
+</ResourceDictionary>

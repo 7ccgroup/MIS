@@ -1,0 +1,553 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:BaseAppUI.ViewModel.Sections"
+                    xmlns:common="clr-namespace:BaseAppUI.Common"
+                       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                    xmlns:se="http://schemas.microsoft.com/expression/2010/interactions"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    >
+
+    <!--<common:TestValueConverter x:Key="test"></common:TestValueConverter>-->
+
+    <Style x:Key="TableHeaderLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="15"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+
+
+    </Style>
+    <Style x:Key="TableRowLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="22"></Setter>
+        <Setter Property="Foreground" Value="#D4D4D5"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="TextWrapping" Value="Wrap"></Setter>
+
+
+
+    </Style>
+
+    <Style x:Key="CusDetailHeaderLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="18"></Setter>
+        <Setter Property="Foreground" Value="#212121"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+    </Style>
+    <Style x:Key="CusDetailLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="18"></Setter>
+        <Setter Property="Foreground" Value="#9A9A9A"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+    </Style>
+
+
+    <DataTemplate x:Key="CustomersView" DataType="{x:Type vm:Customers}">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="506"></ColumnDefinition>
+                <ColumnDefinition Width="1400"></ColumnDefinition>
+                <ColumnDefinition Width="14"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!-- This column border is for Left hand side of the screen-->
+            <Border Grid.Column="0" Background="White" >
+                <Grid Margin="37,22,47,32" >
+                    <!--DataContext="{Binding SelectedItem}" why is this datacontext needed.-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="51"></RowDefinition>
+                        <RowDefinition Height="94"></RowDefinition>
+                        <RowDefinition Height="22"></RowDefinition>
+                        <RowDefinition Height="350"></RowDefinition>
+                        <RowDefinition Height="2"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="1"></RowDefinition>
+                        <RowDefinition Height="1"></RowDefinition>
+                        <RowDefinition Height="1"></RowDefinition>
+
+
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Row="0" Width="130" Height="51" HorizontalAlignment="Left"
+                            Command="{Binding DataContext.ReturnCommand,RelativeSource={RelativeSource TemplatedParent}}"
+                            Style="{DynamicResource BackButtonStyle}">
+
+                    </Button>
+
+                    <DockPanel Grid.Row="1">
+                        <TextBlock VerticalAlignment="Center" FontWeight="Light" FontSize="32" Foreground="#292A2E">
+                            <Run Text="Customer #"></Run>
+                            <Run Text="{Binding CustomerNumber, Mode=OneWay,UpdateSourceTrigger=PropertyChanged,TargetNullValue= - }"></Run>
+                        </TextBlock>
+                        <Button  Grid.Column="3" Background="#0CBF88" 
+                                 Command="{Binding SelectLineCustomerCommand}" 
+                                 CommandParameter="{Binding SelectMasterCustomer}"
+                               IsEnabled="{Binding RecordSelected,UpdateSourceTrigger=PropertyChanged}"
+                                 HorizontalAlignment="Right" VerticalAlignment="Center" Content="EDIT"  Width="150" Height="50" Style="{DynamicResource FlatButtonStyle}"></Button>
+                        <!--  IsHitTestVisible="{Binding IsEditEnabled,FallbackValue=False}" 
+                                 Visibility="{Binding EditVisibility,FallbackValue=Collapsed}"this was commented by SAA 4/5 used to make the button visible-->
+
+                    </DockPanel>
+                    <Grid Grid.Row="3" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="12"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <!--    <TextBlock Grid.Row="0" Grid.Column="1" Text="DATE / TIME" Style="{DynamicResource CusDetailHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding SelectMasterItem101.Id,StringFormat={}{0:MMM dd\, yyyy HH:mm},TargetNullValue= - }" Style="{DynamicResource CusDetailLabel}"></TextBlock>
+-->
+
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="Name" Style="{DynamicResource CusDetailHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding SelectMasterCustomer.vCustName}" Style="{DynamicResource CusDetailHeaderLabel}" ></TextBlock>
+                        <TextBlock Grid.Row="4" Grid.Column="1" Text="Phone" Style="{DynamicResource CusDetailHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding Path=SelectMasterCustomer.vCustPrimaryPh,TargetNullValue= - }" Style="{DynamicResource CusDetailLabel}"></TextBlock>
+                        <TextBlock Grid.Row="6" Grid.Column="1" Text="Address 1" Style="{DynamicResource CusDetailHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding SelectMasterCustomer.vCustAddress1,TargetNullValue= - }" Style="{DynamicResource CusDetailLabel}"></TextBlock>
+                        <TextBlock Grid.Row="8" Grid.Column="1" Text="Address 2" Style="{DynamicResource CusDetailHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Row="8" Grid.Column="2" Text="{Binding SelectMasterCustomer.vCustAddress2,TargetNullValue= - }" Style="{DynamicResource CusDetailLabel}"></TextBlock>
+                        <TextBlock Grid.Row="10" Grid.Column="1" Text="City" Style="{DynamicResource CusDetailHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectMasterCustomer.vCustCity,TargetNullValue= - }" Style="{DynamicResource CusDetailLabel}"></TextBlock>
+                        <TextBlock Grid.Row="12" Grid.Column="1" Text="State" Style="{DynamicResource CusDetailHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Row="12" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectMasterCustomer.vCustState,TargetNullValue= - }" Style="{DynamicResource CusDetailLabel}"></TextBlock>
+                        <TextBlock Grid.Row="14" Grid.Column="1" Text="Zip Code" Style="{DynamicResource CusDetailHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Row="14" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectMasterCustomer.vCustZipCode,TargetNullValue= - }" Style="{DynamicResource CusDetailLabel}"></TextBlock>
+                        <TextBlock Grid.Row="16" Grid.Column="1" Text="Email" Style="{DynamicResource CusDetailHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Row="16" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectMasterCustomer.vCustEmail,TargetNullValue= - }" Style="{DynamicResource CusDetailLabel}"></TextBlock>
+                        <TextBlock Grid.Row="18" Grid.Column="1" Text="Notes" Style="{DynamicResource CusDetailHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Row="18" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectMasterCustomer.vCustNote1,TargetNullValue= - }" Style="{DynamicResource CusDetailLabel}"></TextBlock>
+
+                        <TextBlock Grid.Row="20" Grid.Column="1" Text="Entered By" Style="{DynamicResource CusDetailHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Row="20" Grid.Column="2" Text="{Binding SelectMasterCustomer.vEntryBy,TargetNullValue= - }" Style="{DynamicResource CusDetailLabel}"></TextBlock>
+
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" HorizontalAlignment="Right"  >
+                            <Image Source="{Binding CategoryIcon}"></Image>
+                        </StackPanel>
+
+                    </Grid>
+
+                    <!--   <Grid Grid.Row="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50" ></ColumnDefinition>
+                            <ColumnDefinition Width="14" ></ColumnDefinition>
+                            <ColumnDefinition ></ColumnDefinition>
+                            <ColumnDefinition Width="12" ></ColumnDefinition>
+                            <ColumnDefinition Width="90" ></ColumnDefinition>
+                            <ColumnDefinition Width="12" ></ColumnDefinition>
+                            <ColumnDefinition Width="90" ></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="QTY" HorizontalAlignment="Center" Style="{DynamicResource HeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="ITEM" HorizontalAlignment="Left" Style="{DynamicResource HeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="4" Text="UNIT PRICE" HorizontalAlignment="Center" Style="{DynamicResource HeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="6" Text="TOTAL" HorizontalAlignment="Center" Style="{DynamicResource HeaderLabel}"></TextBlock>
+
+                        <Line Grid.Row="1" Grid.ColumnSpan="7" VerticalAlignment="Bottom" X1="0" X2="{Binding ActualWidth,RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor}}" Stroke="#D8D8D8" StrokeThickness="1" />
+
+                        <ScrollViewer Grid.Row="2" Grid.ColumnSpan="7" ScrollViewer.PanningMode="VerticalOnly" ScrollViewer.VerticalScrollBarVisibility="Hidden" >
+                            <ItemsControl ItemsSource="{Binding OrderLines}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,16,0,4">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition Height="12"></RowDefinition>
+                                                <RowDefinition Height="20"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="50" ></ColumnDefinition>
+                                                <ColumnDefinition Width="14" ></ColumnDefinition>
+                                                <ColumnDefinition ></ColumnDefinition>
+                                                <ColumnDefinition Width="12" ></ColumnDefinition>
+                                                <ColumnDefinition Width="80" ></ColumnDefinition>
+                                                <ColumnDefinition Width="12" ></ColumnDefinition>
+                                                <ColumnDefinition Width="100" ></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding Quantity}" HorizontalAlignment="Center" Style="{DynamicResource OrderLineLabel}"></TextBlock>
+                                            <TextBlock Grid.Column="2" Text="{Binding ItemName}" HorizontalAlignment="Left" Style="{DynamicResource OrderLineLabel}"></TextBlock>
+                                            <TextBlock Grid.Column="4" Text="{Binding Price,StringFormat={}{0:C}}" HorizontalAlignment="Right" Margin="0,0,16,0" TextAlignment="Right" Style="{DynamicResource OrderLineLabel}"></TextBlock>
+                                            <TextBlock Grid.Column="6" Text="{Binding Total,StringFormat={}{0:C}}" HorizontalAlignment="Right" Margin="0,0,18,0" TextAlignment="Right" Style="{DynamicResource OrderLineLabel}"></TextBlock>
+
+                                        </Grid>
+
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel></StackPanel>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="ManipulationBoundaryFeedback">
+
+                                    <se:CallMethodAction MethodName="ManipulationBoundaryFeedbackHandler" TargetObject="{Binding DataContext,RelativeSource={RelativeSource TemplatedParent}}"></se:CallMethodAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ScrollViewer>
+                    </Grid> -->
+                    <!--Commented by saa 4/7 for layout for Items.-->
+                    <!--    <Grid Grid.Row="6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="34"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="189"></ColumnDefinition>
+
+                        </Grid.ColumnDefinitions>
+
+                        <Line Grid.Row="0" Grid.ColumnSpan="3" VerticalAlignment="Top" X1="0" X2="{Binding ActualWidth,RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor}}" Stroke="#D8D8D8" StrokeThickness="1" />
+                        <Line Grid.Row="1"  Grid.Column="0"  HorizontalAlignment="Right" Y1="0" Y2="{Binding ActualHeight,RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor}}" Stroke="#D8D8D8" StrokeThickness="1" />
+                        <Line Grid.Row="1"  Grid.Column="1"  HorizontalAlignment="Right" Y1="0" Y2="{Binding ActualHeight,RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor}}" Stroke="#D8D8D8" StrokeThickness="1" />
+
+
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Foreground="#757575" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center">
+                                <Run Text="PAID VIA"></Run>
+                                <LineBreak></LineBreak>
+                                <Run  Text="{Binding PaidVia,Mode=OneWay,TargetNullValue= - }"></Run>
+
+                        </TextBlock>
+
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="20"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="26"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="26"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="26"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="SUBTOTAL" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#757575" FontSize="14"></TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#757575" FontSize="14">
+                                <Run Text="TAX"></Run>
+                                <Run Text="{Binding SalexTaxRate,Mode=OneWay,StringFormat={} ({0:0.##}%)}"></Run>
+                            </TextBlock>
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="DISCOUNT"  VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#757575" FontSize="14"></TextBlock>
+
+
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Subtotal,Mode=OneWay,StringFormat={}{0:C}}"  VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#757575" FontSize="22"></TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding TaxSubtotal,Mode=OneWay,StringFormat={}{0:C}}"  VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#757575" FontSize="22"></TextBlock>
+                            <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Discount,Mode=OneWay,StringFormat={}{0:C}}"  VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#757575" FontSize="22"></TextBlock>
+
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"></ColumnDefinition>
+                                <ColumnDefinition Width="20"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="26"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="26"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="26"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="TOTAL" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Foreground="#212121" FontSize="16"></TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="PAID"  VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#757575" FontSize="14"></TextBlock>
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="CHANGE"  VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#757575" FontSize="14"></TextBlock>
+
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding AllTotal,Mode=OneWay,StringFormat={}{0:C}}"  VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" Foreground="#212121" FontSize="24"></TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding PaidVia,Mode=OneWay,TargetNullValue= - }"  VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#757575" FontSize="22"></TextBlock>
+                            <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Change,Mode=OneWay,StringFormat={}{0:C}}"  VerticalAlignment="Center" HorizontalAlignment="Left"  Foreground="#757575" FontSize="22"></TextBlock>
+                        </Grid>
+
+
+
+                    </Grid>-->
+                    <!--   <Grid Grid.Row="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Button  Grid.Column="0" Command="{Binding CancelOrderCommand}" CommandParameter="{Binding}" IsHitTestVisible="{Binding IsCancelEnabled,FallbackValue=False}"  HorizontalAlignment="Center"   Width="154" Height="50" Style="{DynamicResource CancelButtonStyle}"></Button>
+                        <Button  Grid.Column="1"  Command="{Binding PrintOrderCommand}" CommandParameter="{Binding}" IsHitTestVisible="{Binding IsPrintEnabled,FallbackValue=False}"   HorizontalAlignment="Center"  Width="154" Height="50" Style="{DynamicResource PrintButtonStyle}"></Button>
+                        <Button  Grid.Column="2"   Command="{Binding PayOrderCommand}" CommandParameter="{Binding}" IsHitTestVisible="{Binding IsPayNowEnabled,FallbackValue=False}" HorizontalAlignment="Center" Width="154" Height="50" Style="{DynamicResource PayButtonStyle}"></Button>
+                    </Grid> -->
+
+
+                </Grid>
+            </Border>
+     <!--       <Border Grid.Column="1" Background="#292A2E">
+
+                <Grid Margin="24,0,24,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="110"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="370"></ColumnDefinition>
+
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Customers" FontWeight="Bold" FontSize="44" VerticalAlignment="Center"></TextBlock>
+
+                        <TextBox Grid.Column="2"  Height="48" Width="350" VerticalAlignment="Center" Style="{DynamicResource SearchBoxStyle}"
+                                Tag="{Binding MasterItemSearchCommand}"
+                                 ></TextBox>
+
+                        <Line Grid.ColumnSpan="3" VerticalAlignment="Bottom" X1="0" X2="{Binding ActualWidth,RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor}}" Stroke="#4C4D50" StrokeThickness="1" />
+                    </Grid>
+
+                    <ScrollViewer Grid.Row="1" Margin="0,16,0,0" ScrollViewer.PanningMode="VerticalOnly" ScrollViewer.VerticalScrollBarVisibility="Hidden" >
+                        <ItemsControl   ItemsSource="{Binding CustomersDisplayByCategory,UpdateSourceTrigger=PropertyChanged}">
+                            
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Width="172" Height="172" Margin="18" Command="{Binding DataContext.SelectMasterItemCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ItemsControl}}" CommandParameter="{Binding }" Style="{DynamicResource OrderHistoryButtonStyle}">
+                                        <Button.Content>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="18"></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition Height="14"></RowDefinition>
+                                                    <RowDefinition Height="18"></RowDefinition>
+                                                    <RowDefinition Height="10"></RowDefinition>
+                                                    <RowDefinition Height="14"></RowDefinition>
+                                                    <RowDefinition Height="26"></RowDefinition>
+                                                </Grid.RowDefinitions>
+
+                                                <Border Grid.Row="1" MinHeight="72" VerticalAlignment="Bottom">
+                                                    <TextBlock VerticalAlignment="Center" Text="{Binding vCustName}" Width="100" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                                                </Border>
+                                                <TextBlock Grid.Row="3" VerticalAlignment="Center" Text="{Binding vItemMinPrice,StringFormat={}{0:C}}" FontSize="18"  TextAlignment="Center"></TextBlock>
+
+                                                <TextBlock Grid.Row="5" VerticalAlignment="Center" Text="{Binding RegularPrice,StringFormat={}{0:C},TargetNullValue={x:Static sys:String.Empty}}"  TextDecorations="Strikethrough" Foreground="#767779" FontSize="14" TextAlignment="Center"></TextBlock>
+
+                                            </Grid>
+
+
+                                        </Button.Content>
+
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel></WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="ManipulationBoundaryFeedback">
+
+                                <se:CallMethodAction MethodName="ManipulationBoundaryFeedbackHandler" TargetObject="{Binding}"></se:CallMethodAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ScrollViewer>
+
+                </Grid>
+            </Border> -->
+            <!--DataContext="{Binding ItemCategory}"-->
+            <Border Grid.Column="1" Background="#292A2E">
+
+                <Grid Margin="0,24,0,24">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="110"></RowDefinition>
+                        <RowDefinition Height="58"></RowDefinition>
+
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+
+                    <Grid Grid.Row="0" Margin="24,0,24,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Customers" VerticalAlignment="Center" FontWeight="Bold" FontSize="44"></TextBlock>
+
+                    </Grid>
+
+                    <Grid Grid.Row="1" VerticalAlignment="Stretch" Margin="40,0,0,0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="350"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="NAME"  Style="{DynamicResource TableHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Column="1" Text="PHONE" Style="{DynamicResource TableHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Column="2" Text="EMAIL" Style="{DynamicResource TableHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Column="3" Text="ADDRESS" Style="{DynamicResource TableHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Column="4" Text="CITY"  Style="{DynamicResource TableHeaderLabel}"></TextBlock>
+                        <TextBlock Grid.Column="5" Text="STATE" Style="{DynamicResource TableHeaderLabel}"></TextBlock>
+                        <Line Grid.ColumnSpan="6" VerticalAlignment="Bottom" X1="0" X2="{Binding ActualWidth,RelativeSource={RelativeSource AncestorType=Grid,Mode=FindAncestor}}" Stroke="#4C4D50" StrokeThickness="1" />
+
+                    </Grid>
+
+                    <ScrollViewer Grid.Row="2" Margin="24,0,24,0" ScrollViewer.PanningMode="VerticalOnly" ScrollViewer.VerticalScrollBarVisibility="Hidden" >
+                        <ItemsControl  ItemsSource="{Binding CustomersDisplay}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Height="88" HorizontalAlignment="Stretch" Command="{Binding DataContext.SelectMasterCustomerCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ItemsControl}}" CommandParameter="{Binding}" Foreground="White" Style="{DynamicResource RtButtonStyle}" >
+                                        <Button.Content>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1"></ColumnDefinition>
+                                                    <ColumnDefinition Width="299"></ColumnDefinition>
+                                                    <ColumnDefinition Width="200"></ColumnDefinition>
+                                                    <ColumnDefinition Width="200"></ColumnDefinition>
+                                                    <ColumnDefinition Width="350"></ColumnDefinition>
+                                                    <ColumnDefinition Width="200"></ColumnDefinition>
+                                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+
+                                                <TextBlock Grid.Column="1"  Text="{Binding vCustName}" Style="{DynamicResource TableRowLabel}"></TextBlock>
+                                                <TextBlock Grid.Column="2"  Text="{Binding vCustPrimaryPh,TargetNullValue=-}" Style="{DynamicResource TableRowLabel}"></TextBlock>
+                                                <TextBlock Grid.Column="3"  Text="{Binding vCustEmail}" Style="{DynamicResource TableRowLabel}"></TextBlock>
+                                                <TextBlock Grid.Column="4"  Text="{Binding vCustAddress1,StringFormat={}{0:MMM dd\, yyyy HH:mm}}" Style="{DynamicResource TableRowLabel}"></TextBlock>
+
+                                                <TextBlock Grid.Column="5"  Text="{Binding vCustCity,StringFormat={}{0:C}}" Style="{DynamicResource TableRowLabel}"></TextBlock>
+
+
+                                                <TextBlock Grid.Column="6"  Text="{Binding vCustState,TargetNullValue=-}" Style="{DynamicResource TableRowLabel}"></TextBlock>
+                                                <!--,StringFormat={}#{0}-->
+
+                                            </Grid>
+
+
+                                        </Button.Content>
+
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel></StackPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="ManipulationBoundaryFeedback">
+
+                                <se:CallMethodAction MethodName="ManipulationBoundaryFeedbackHandler" TargetObject="{Binding}"></se:CallMethodAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ScrollViewer>
+
+                </Grid>
+            </Border>
+
+       <!--     <Border Grid.Column="2" Background="#1B1C1F">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="110"></RowDefinition>
+                        <RowDefinition Height="926"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+
+
+
+
+
+                    <ScrollViewer Grid.Row="1" ScrollViewer.PanningMode="VerticalOnly" ScrollViewer.VerticalScrollBarVisibility="Hidden" >
+
+                        <ItemsControl ItemsSource="{Binding CategoriesList}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+
+                                    <Button Height="100" HorizontalAlignment="Stretch" Command="{Binding DataContext.SelectCategoryCommand,RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" Content="{Binding vCategoryShortDesc}" Style="{DynamicResource CategoryButtonStyle}"></Button>
+
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel></StackPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+
+
+
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="ManipulationBoundaryFeedback">
+
+                                <se:CallMethodAction MethodName="ManipulationBoundaryFeedbackHandler" TargetObject="{Binding}"></se:CallMethodAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ScrollViewer>
+
+
+
+
+                </Grid>
+            </Border> -->
+        </Grid>
+
+
+    </DataTemplate>
+</ResourceDictionary>

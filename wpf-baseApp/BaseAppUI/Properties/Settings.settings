@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BaseAppUI.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DBstring" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Data Source = posDB.sdf</Value>
+    </Setting>
+    <Setting Name="POSMainPrinter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Star TSP100 Cutter (TSP143)</Value>
+    </Setting>
+    <Setting Name="POSKitchenPrinter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Star TSP100 Cutter (TSP143)</Value>
+    </Setting>
+    <Setting Name="BusinessAddress1" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">2263 W. Delicious Drive</Value>
+    </Setting>
+    <Setting Name="BusinessAddress2" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Foodopolis, HE 50982</Value>
+    </Setting>
+    <Setting Name="BusinessTel" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">(847) 524-1401</Value>
+    </Setting>
+    <Setting Name="ServiceFee" Type="System.Decimal" Scope="Application">
+      <Value Profile="(Default)">15</Value>
+    </Setting>
+    <Setting Name="MerchantID" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">72701812345</Value>
+    </Setting>
+    <Setting Name="UserID" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">wpftest12345</Value>
+    </Setting>
+    <Setting Name="Tax1_State" Type="System.Decimal" Scope="Application">
+      <Value Profile="(Default)">10.45</Value>
+    </Setting>
+    <Setting Name="Tax2_Village" Type="System.Decimal" Scope="Application">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="Tax_overall" Type="System.Decimal" Scope="Application">
+      <Value Profile="(Default)">12.45</Value>
+    </Setting>
+    <Setting Name="Pin" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">2572112345</Value>
+    </Setting>
+    <Setting Name="TipSignModifierSwitch" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SignOnReceipt</Value>
+    </Setting>
+    <Setting Name="BusinessName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Great Eats!</Value>
+    </Setting>
+    <Setting Name="Url" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://pos.acloud.net/tastynihari/</Value>
+    </Setting>
+    <Setting Name="CKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ck_b7a72263b6bf95a345c87951f04810a120826ba9</Value>
+    </Setting>
+    <Setting Name="CSecret" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">cs_8e982aafabc481195e62c88f4685ea6a5fd99290</Value>
+    </Setting>
+    <Setting Name="DatabaseLocation" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:</Value>
+    </Setting>
+    <Setting Name="DashboardIncludePendingOrders" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Yes</Value>
+    </Setting>
+    <Setting Name="SyncMode" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">StandAlone</Value>
+    </Setting>
+    <Setting Name="AddonCount" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="Addon201" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Meat;.75;meat;</Value>
+    </Setting>
+    <Setting Name="Addon202" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Scoop;1.75;scoop;</Value>
+    </Setting>
+    <Setting Name="Addon203" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Flavor;.75;flavor;</Value>
+    </Setting>
+    <Setting Name="Addon204" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Egg;.75;egg;</Value>
+    </Setting>
+    <Setting Name="Addon205" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Some;2.75;some;</Value>
+    </Setting>
+    <Setting Name="LoginScreen" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Show1</Value>
+    </Setting>
+    <Setting Name="EnableTableNumber" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">No</Value>
+    </Setting>
+    <Setting Name="POSType" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Resturant</Value>
+    </Setting>
+    <Setting Name="EnableItemAdd" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">No</Value>
+    </Setting>
+    <Setting Name="EnableFrequentItemUpdate" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">No</Value>
+    </Setting>
+    <Setting Name="POSversion" Type="System.Single" Scope="Application">
+      <Value Profile="(Default)">1.01</Value>
+    </Setting>
+    <Setting Name="POSExtraPrinterCount" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="POSExtraPrinter01" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Star TSP100 Cutter (TSP143)</Value>
+    </Setting>
+    <Setting Name="POSExtraPrinter02" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Star TSP100 Cutter (TSP143)</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
